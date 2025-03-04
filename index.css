@@ -1,0 +1,26 @@
+
+#menu-icon {
+  transform: scale(1.2);
+}
+
+#menu-icon-hover {
+  transform: none !important;
+}
+
+#playground {
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 998;
+  pointer-events: none;
+}
+
+html, body, #playground, canvas {
+  cursor: none !important;
+}

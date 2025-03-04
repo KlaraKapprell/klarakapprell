@@ -1,0 +1,150 @@
+/* Globales Reset */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Schriftart laden */
+@font-face {
+  font-family: 'UncutSans';
+  src: url('uncut-sans/UncutSans-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'UncutSans';
+  src: url('uncut-sans/UncutSans-Medium.otf') format('opentype');
+  font-weight: 500;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'UncutSans';
+  src: url('uncut-sans/UncutSans-Semibold.otf') format('opentype');
+  font-weight: 600;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'UncutSans';
+  src: url('uncut-sans/UncutSans-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-display: swap;
+}
+
+body {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  font-family: 'UncutSans', sans-serif;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+/* Header */
+header {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.header-nav {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  gap: clamp(12px, 2vw, 20px);
+  text-align: left;
+  font-family: 'UncutSans', sans-serif;
+  font-weight: 600;
+  font-size: clamp(32px, 5vw, 36px); /* Scales smoothly on small screens */
+  color: #000;
+}
+
+.klara-kapprell {
+  flex: 1;
+  position: relative;
+  display: inline-block;
+  text-decoration: none;
+  color: inherit;
+  cursor: default;
+  pointer-events: none;
+}
+
+.klara-kapprell span {
+  cursor: pointer;
+  pointer-events: auto;
+  white-space: nowrap;
+  overflow-wrap: normal;
+  word-break: keep-all;
+}
+
+.klara-kapprell span:hover::before {
+  content: "→ ";
+  white-space: nowrap;
+  overflow-wrap: normal;
+  word-break: keep-all;
+}
+
+.header-button {
+  border-radius: 30px;
+  border: 2px solid #000;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 0px 10px;
+  text-decoration: none;
+  color: inherit;
+}
+
+.header-button:hover {
+  background-color: rgb(210, 240, 0);
+  border-color: rgb(210, 240, 0);
+}
+
+#menu-icon {
+  width: clamp(45px, 10vw, 50px);
+  height: clamp(45px, 10vw, 50px);
+  display: block; /* Ensure it has an area */
+}
+
+#menu-icon:hover {
+  transform: scale(1.2); /* 120% scaling on hover */
+}
+
+#menu-icon canvas {
+  pointer-events: none;
+}
+
+/* Main */
+main {
+  flex-grow: 1;
+  padding: 40px 0px;
+}
+
+/* Footer */
+footer {
+  display: flex;
+  justify-content: right;
+  align-items: right;
+}
+
+.say-hi {
+  font-size: clamp(32px, 5vw, 36px); /* Scales smoothly on small screens */
+  font-weight: 600;
+  font-family: 'UncutSans', sans-serif;
+  color: #000;
+  text-align: left;
+  text-decoration: none;
+}
+
+.say-hi:hover::after {
+  content: " 👀";
+}
