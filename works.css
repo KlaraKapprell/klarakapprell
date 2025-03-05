@@ -80,9 +80,8 @@ main {
   }
 
   .project-image {
-    width: 100%;
-    height: auto;
-    max-height: 100%; /* Stellt sicher, dass Bilder nicht über den Rahmen hinausgehen */
+    width: auto;
+    height: 100%;
     object-fit: contain; /* Alternativ zu cover, falls es besser passt */
   }
 }
