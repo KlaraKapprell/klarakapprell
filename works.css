@@ -44,6 +44,13 @@ main {
   object-fit: cover;
 }
 
+.project-image.portrait {
+  width: auto;
+  max-width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
 .video-frame {
   position: relative;
   overflow: hidden;
