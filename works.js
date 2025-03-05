@@ -55,4 +55,14 @@ document.addEventListener("DOMContentLoaded", () => {
         // Observe all project frames
         projectFrames.forEach(frame => observer.observe(frame));
     }
+
+    const projectImages = document.querySelectorAll(".project-image");
+
+    projectImages.forEach(img => {
+        img.onload = () => {
+            if (img.naturalHeight > img.naturalWidth) {
+                img.classList.add("portrait");
+            }
+        };
+    });
 });
