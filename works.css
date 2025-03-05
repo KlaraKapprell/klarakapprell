@@ -40,7 +40,7 @@ main {
 
 .project-image {
   max-width: 100%;
-  max-height: 100% !important;
+  max-height: 100%;
   object-fit: cover;
 }
 
@@ -77,13 +77,6 @@ main {
 
   .project-frame.active {
     background-color: rgb(210, 240, 0); /* Same yellow as hover effect */
-  }
-
-  .project-frame {
-    aspect-ratio: auto; /* Falls das starre Verhältnis Probleme macht */
-    display: flex;
-    align-items: center;
-    justify-content: center;
   }
 
   .project-image {
