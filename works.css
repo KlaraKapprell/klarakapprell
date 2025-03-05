@@ -82,6 +82,6 @@ main {
   .project-image {
     width: auto;
     height: auto;
-    object-fit: contain; /* Alternativ zu cover, falls es besser passt */
+    object-fit: contain;
   }
 }
