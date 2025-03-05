@@ -85,10 +85,4 @@ main {
   .project-frame.active {
     background-color: rgb(210, 240, 0); /* Same yellow as hover effect */
   }
-
-  .project-image {
-    width: auto;
-    height: auto;
-    object-fit: contain;
-  }
 }
