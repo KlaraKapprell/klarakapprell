@@ -38,6 +38,10 @@ main {
   overflow: hidden;
 }
 
+.project-frame.active {
+    background-color: rgb(210, 240, 0); /* Same yellow as hover effect */
+}
+
 .project-image {
   max-width: 100%;
   max-height: 100%;
@@ -81,9 +85,5 @@ main {
 @media (max-width: 768px) {
   .project-grid {
       grid-template-columns: repeat(1, 1fr); /* 1 Spalte für Handys */
-  }
-
-  .project-frame.active {
-    background-color: rgb(210, 240, 0); /* Same yellow as hover effect */
   }
 }
