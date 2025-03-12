@@ -53,7 +53,7 @@
   width: 100%;
   aspect-ratio: 4/3; /* Höhe ist 2/3 der Breite */
   border-radius: 20px;
-  background-color: rgb(210, 240, 0);
+  background-color: rgb(214, 243, 0);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -72,7 +72,7 @@
 }
 
 .video-frame:hover {
-  background-color: rgb(210, 240, 0); /* Change to yellow */
+  background-color: rgb(214, 243, 0); /* Change to yellow */
 }
 
 .project-video {
@@ -80,8 +80,8 @@
   max-width: 100%;
   max-height: 100%;
   object-fit: cover;
-  box-shadow: inset 0 0 1px rgba(210, 240, 0);
-  background-color: rgb(210, 240, 0);
+  box-shadow: inset 0 0 1px rgba(214, 243, 0);
+  background-color: rgb(214, 243, 0);
 }
 
 @media (max-width: 1260px) {
