@@ -39,14 +39,14 @@
 }
 
 .hover-p5:hover {
-  background-color: rgb(210, 240, 0);
-  border-color: rgb(210, 240, 0);
+  background-color: rgb(214, 243, 0);
+  border-color: rgb(214, 243, 0);
   cursor: pointer;
 }
 
 .hover-p5-active {
-  background-color: rgb(210, 240, 0);
-  border-color: rgb(210, 240, 0);
+  background-color: rgb(214, 243, 0);
+  border-color: rgb(214, 243, 0);
   cursor: pointer;
 }
 
@@ -120,10 +120,10 @@ canvas {
 
 /* Keyframes for instant color change */
 @keyframes colorChange {
-  0% { background-color: rgb(210, 240, 0); }
+  0% { background-color: rgb(214, 243, 0); }
   20% { background-color: rgb(255, 90, 255); }
   40% { background-color: rgb(0, 223, 115); } 
   60% { background-color: rgb(255, 80, 0); }
   80% { background-color: rgb(0, 100, 249); }
-  100% { background-color: rgb(210, 240, 0); }
+  100% { background-color: rgb(214, 243, 0); }
 }

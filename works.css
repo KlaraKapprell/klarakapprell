@@ -1,7 +1,7 @@
 .works-button {
   border-radius: 30px;
-  border: 2px solid rgb(210, 240, 0);
-  background-color: rgb(210, 240, 0);
+  border: 2px solid rgb(214, 243, 0);
+  background-color: rgb(214, 243, 0);
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -39,7 +39,7 @@ main {
 }
 
 .project-frame.active {
-    background-color: rgb(210, 240, 0); /* Same yellow as hover effect */
+    background-color: rgb(214, 243, 0); /* Same yellow as hover effect */
 }
 
 .project-image {
@@ -62,7 +62,7 @@ main {
 }
 
 .video-frame:hover {
-  background-color: rgb(210, 240, 0); /* Change to yellow */
+  background-color: rgb(214, 243, 0); /* Change to yellow */
   cursor: pointer;
 }
 
@@ -72,8 +72,8 @@ main {
   max-height: 100%;
   object-fit: cover;
   display: none; /* Hide video initially */
-  box-shadow: inset 0 0 1px rgba(210, 240, 0);
-  background-color: rgb(210, 240, 0);
+  box-shadow: inset 0 0 1px rgba(214, 243, 0);
+  background-color: rgb(214, 243, 0);
 }
 
 /* Grid Anpassungen für verschiedene Bildschirmgrößen */
