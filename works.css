@@ -72,6 +72,8 @@ main {
   max-height: 100%;
   object-fit: cover;
   display: none; /* Hide video initially */
+  box-shadow: inset 0 0 1px rgba(210, 240, 0);
+  background-color: rgb(210, 240, 0);
 }
 
 /* Grid Anpassungen für verschiedene Bildschirmgrößen */
