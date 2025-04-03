@@ -64,7 +64,7 @@ header {
   font-family: 'UncutSans', sans-serif;
   font-weight: 600;
   font-size: clamp(32px, 5vw, 36px); /* Scales smoothly on small screens */
-  color: #000;
+  color: rgb(255, 30, 255);
 }
 
 .klara-kapprell {
@@ -78,35 +78,41 @@ header {
 }
 
 .klara-kapprell span {
-  cursor: pointer;
-  pointer-events: auto;
   white-space: nowrap;
   overflow-wrap: normal;
   word-break: keep-all;
 }
 
 .klara-kapprell span:hover::before {
-  content: "→ ";
   white-space: nowrap;
   overflow-wrap: normal;
   word-break: keep-all;
 }
 
 .header-button {
+  position: relative;
+  overflow: hidden;
   border-radius: 30px;
-  border: 2px solid #000;
+  border: 2px solid rgb(255, 30, 255);
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
   padding: 0px 10px;
   text-decoration: none;
-  color: inherit;
+  color: rgb(255, 30, 255);
+  background-image: linear-gradient(to right, rgb(255, 30, 255), rgb(255, 30, 255));
+  background-size: 0% 100%;
+  background-repeat: no-repeat;
+  background-position: left;
+  transition: background-size 0.4s ease-in-out, color 0.4s ease-in-out, border-color 0.4s ease-in-out;
+  z-index: 0;
 }
 
 .header-button:hover {
-  background-color: rgb(214, 243, 0);
-  border-color: rgb(214, 243, 0);
+  background-size: 100% 100%;
+  color: #fff;
+  border-color: rgb(255, 30, 255);
 }
 
 #menu-icon {
@@ -132,15 +138,43 @@ main {
 /* Footer */
 footer {
   display: flex;
-  justify-content: right;
-  align-items: right;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.impressum-button {
+  font-size: clamp(32px, 5vw, 36px); /* Scales smoothly on small screens */
+  font-weight: 600;
+  font-family: 'UncutSans', sans-serif;
+  overflow: hidden;
+  border-radius: 30px;
+  border: 2px solid rgb(255, 30, 255);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 0px 20px;
+  text-decoration: none;
+  color: rgb(255, 30, 255);
+  background-image: linear-gradient(to right, rgb(255, 30, 255), rgb(255, 30, 255));
+  background-size: 0% 100%;
+  background-repeat: no-repeat;
+  background-position: left;
+  transition: background-size 0.4s ease-in-out, color 0.4s ease-in-out, border-color 0.4s ease-in-out;
+  z-index: 0;
+}
+
+.impressum-button:hover {
+  background-size: 100% 100%;
+  color: #fff;
+  border-color: rgb(255, 30, 255);
 }
 
 .say-hi {
   font-size: clamp(32px, 5vw, 36px); /* Scales smoothly on small screens */
   font-weight: 600;
   font-family: 'UncutSans', sans-serif;
-  color: #000;
+  color: rgb(255, 30, 255);
   text-align: left;
   text-decoration: none;
 }

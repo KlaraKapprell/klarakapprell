@@ -73,7 +73,7 @@ let menuIconSketch = (p) => {
         let endAngle = startAngle + (arcSpan / steps);
 
         p.noFill();
-        p.stroke(255, 90, 255);
+        p.stroke(255, 30, 255);
         p.arc(0, armLength / 2, armLength, armLength, startAngle, endAngle);
       }
       p.pop();
