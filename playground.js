@@ -247,7 +247,7 @@ let playgroundSketch = (p) => {
     for (let e of bubbleMachineEllipses) {
       p.ellipse(e.x, e.y, e.w, e.h);
     }
-    p.fill(255, 90, 255);
+    p.fill(255, 30, 255);
     p.stroke(0);
     p.strokeWeight(1.5);
     p.ellipse(bubbleSpawnArea.x, bubbleSpawnArea.y, bubbleSpawnArea.w, bubbleSpawnArea.h);
@@ -452,7 +452,7 @@ p.touchEnded = () => {
     popMessage.style("white-space", "nowrap");
     popMessage.style("opacity", "1");
 
-    popMessage.html(`Yay! You popped <span style="color: rgb(255, 90, 255); font-weight: bold;">${popCount}</span> bubble${popCount > 1 ? "s" : ""}.`);
+    popMessage.html(`Yay! You popped <span style="color: rgb(255, 30, 255); font-weight: bold;">${popCount}</span> bubble${popCount > 1 ? "s" : ""}.`);
     popMessage.show();
   } 
 
@@ -488,7 +488,7 @@ p.touchEnded = () => {
       p.translate(this.x, this.y);
       let dynamicStrokeWeight = p.map(this.size, this.startSize, this.maxSize, 1.25, 2);
 
-      p.fill(255, 90, 255, 200);
+      p.fill(255, 30, 255, 200);
       p.stroke(0);
       p.strokeWeight(dynamicStrokeWeight);
       p.ellipse(0, 0, this.size);
