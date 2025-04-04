@@ -34,7 +34,6 @@
   cursor: none;
   background-color: #000;
   color: #fff;
-  cursor: none;
 }
 
 .hover-p5 {
@@ -47,7 +46,6 @@
   cursor: pointer;
   background-color: rgb(214, 243, 0);
   border-color: rgb(214, 243, 0);
-  cursor: pointer;
 }
 
 .hover-p5-active {
@@ -57,16 +55,23 @@
 }
 
 .hover-mail {
+  position: relative;
+  overflow: hidden;
   padding: 0px 10px;
   border-radius: 30px;
   border: 2px solid #000;
+  background-image: linear-gradient(to right, #000, #000);
+  background-size: 0% 100%;
+  background-repeat: no-repeat;
+  background-position: left;
+  transition: background-size 0.4s ease-in-out, color 0.4s ease-in-out, border-color 0.4s ease-in-out;
+  z-index: 0;
 }
 
 .hover-mail:hover {
   cursor: pointer;
-  background-color: #000;
   color: #fff;
-  cursor: pointer;
+  background-size: 100% 100%;
 }
 
 .hover-cv {
@@ -79,7 +84,6 @@
   cursor: pointer;
   background-color: rgb(255, 30, 255);
   border-color: rgb(255, 30, 255);
-  cursor: pointer;
 }
 
 .hidden {
