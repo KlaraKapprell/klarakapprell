@@ -1,5 +1,4 @@
-document.addEventListener("DOMContentLoaded", function () {
-  // --- DOWNLOAD CV PDF ---
+ // --- DOWNLOAD CV PDF ---
   cvTrigger.addEventListener("click", function () {
     const cvUrl = "media/KlaraKapprell_Portfolio.pdf";
     const link = document.createElement("a");
@@ -9,5 +8,3 @@ document.addEventListener("DOMContentLoaded", function () {
     link.click();
     document.body.removeChild(link);
   });
-
-}); 
