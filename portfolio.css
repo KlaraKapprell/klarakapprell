@@ -1,0 +1,23 @@
+.text-container {
+  width: 100%;
+  position: relative;
+  font-size: clamp(32px, 5vw, 36px);
+  font-family: 'UncutSans', sans-serif;
+  color: #000;
+  text-align: left;
+  display: inline-block;
+  min-width: 320px;
+  max-width: 1000px;
+}
+
+.hover-cv {
+  padding: 0px 10px;
+  border-radius: 30px;
+  border: 2px solid #000;
+}
+
+.hover-cv:hover {
+  cursor: pointer;
+  background-color: rgb(255, 30, 255);
+  border-color: rgb(255, 30, 255);
+}
