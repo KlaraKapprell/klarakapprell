@@ -48,9 +48,9 @@ document.addEventListener("DOMContentLoaded", () => {
         if (entry.isIntersecting){
           frame.classList.add("active");
 
-          // Erst einblenden, wenn es WIRKLICH spielt
+          // erst sichtbar machen, WENN es wirklich spielt
           const onPlaying = () => {
-            video.style.opacity = "1";
+            frame.classList.add('playing');   // -> CSS zeigt Video
             image.style.opacity = "0";
             video.removeEventListener('playing', onPlaying);
           };
@@ -66,10 +66,10 @@ document.addEventListener("DOMContentLoaded", () => {
             frame.addEventListener('touchstart', onTap, { once:true });
           }
         } else {
-          frame.classList.remove("active");
+          frame.classList.remove("active", "playing");
           video.pause();
           video.currentTime = 0;
-          video.style.opacity = "0";
+          // Bild wieder zeigen
           image.style.opacity = "1";
         }
       }
