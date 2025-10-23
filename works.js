@@ -35,20 +35,21 @@ document.addEventListener("DOMContentLoaded", () => {
                 const image = frame.querySelector(".project-image");
                 const video = frame.querySelector(".project-video");
 
-                if (entry.isIntersecting) {
-                    // Activate full frame effect
-                    frame.classList.add("active");
-                    image.style.display = "none";
-                    video.style.display = "block";
-                    video.play();
-                } else {
-                    // Deactivate effect
-                    frame.classList.remove("active");
-                    video.style.display = "none";
-                    image.style.display = "block";
-                    video.pause();
-                    video.currentTime = 0;
-                }
+            if (entry.isIntersecting) {
+                // Aktivieren (Video sichtbar machen)
+                frame.classList.add("active");
+                image.style.opacity = "0";
+                video.style.opacity = "1";
+                video.load(); // sicherstellen, dass das Video bereit ist
+                setTimeout(() => video.play(), 50); // kleiner Delay für iOS
+            } else {
+                // Deaktivieren (Video wieder ausblenden)
+                frame.classList.remove("active");
+                video.pause();
+                video.currentTime = 0;
+                video.style.opacity = "0";
+                image.style.opacity = "1";
+            }
             });
         }, observerOptions);
 
