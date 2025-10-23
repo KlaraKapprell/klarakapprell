@@ -23,83 +23,72 @@ async function safePlay(video) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  const projectFrames = document.querySelectorAll(".project-frame");
-  const isTouchDevice = "ontouchstart" in window || navigator.maxTouchPoints;
+    const projectFrames = document.querySelectorAll(".project-frame");
+    const isTouchDevice = "ontouchstart" in window || navigator.maxTouchPoints;
 
-  if (!isTouchDevice) {
-    // Desktop unverändert …
-    projectFrames.forEach(frame => {
-      const image = frame.querySelector(".project-image");
-      const video = frame.querySelector(".project-video");
-      frame.addEventListener("mouseenter", () => {
-        image.style.opacity = "0";
-        video.style.opacity = "1";
-        safePlay(video);
-      });
-      frame.addEventListener("mouseleave", () => {
-        video.pause();
-        video.currentTime = 0;
-        video.style.opacity = "0";
-        image.style.opacity = "1";
-      });
+    if (!isTouchDevice) {
+        // **Desktop: Original Hover Behavior**
+        projectFrames.forEach(frame => {
+            const image = frame.querySelector(".project-image");
+            const video = frame.querySelector(".project-video");
+
+            frame.addEventListener("mouseenter", () => {
+                image.style.opacity = "0"; // Hide image
+                video.style.opacity = "1"; // Show video
+                safePlay(video);
+            });
+
+            frame.addEventListener("mouseleave", () => {
+                video.pause(); // Pause video
+                video.currentTime = 0; // Reset video to the beginning
+                video.style.opacity = "0"; // Hide video
+                image.style.opacity = "1"; // Show image again
+            });
+        });
+    } else {
+        // **Mobile: Scroll-based Full-Frame Activation**
+        const observerOptions = {
+            root: null, // Viewport
+            rootMargin: "0px",
+            threshold: 1 // Activate when 100% is visible
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                const frame = entry.target;
+                const image = frame.querySelector(".project-image");
+                const video = frame.querySelector(".project-video");
+
+                if (entry.isIntersecting) {
+                    // Aktivieren (Video sichtbar machen)
+                    frame.classList.add("active");
+                    image.style.opacity = "0";
+                    video.style.opacity = "1";
+                    video.load(); // sicherstellen, dass das Video bereit ist
+                    setTimeout(() => video.play(), 50); // kleiner Delay für iOS
+                } else {
+                    // Deaktivieren (Video wieder ausblenden)
+                    frame.classList.remove("active");
+                    video.pause();
+                    video.currentTime = 0;
+                    video.style.opacity = "0";
+                    image.style.opacity = "1";
+                }
+
+            });
+        }, observerOptions);
+
+        // Observe all project frames
+        projectFrames.forEach(frame => observer.observe(frame));
+    }
+
+    const projectImages = document.querySelectorAll(".project-image");
+
+    projectImages.forEach(img => {
+        img.onload = () => {
+            if (img.naturalHeight > img.naturalWidth) {
+                img.classList.add("portrait");
+            }
+        };
     });
-    return;
-  }
-
-  // —— Mobile: IntersectionObserver ——
-  // etwas toleranter als 1.0 (100%), damit zuverlässig triggert
-  const observerOptions = { root: null, rootMargin: "0px", threshold: 0.6 };
-
-  // Einmaliges “Unlock” nach erstem User-Tap (hilft bei Low-Power/Data-Saver)
-  let unlocked = false;
-  const unlock = async () => {
-    if (unlocked) return;
-    unlocked = true;
-    const videos = document.querySelectorAll(".project-video");
-    for (const v of videos) {
-      v.muted = true;
-      v.playsInline = true;
-      v.setAttribute('playsinline', '');
-      v.setAttribute('webkit-playsinline', '');
-      v.autoplay = true;
-      try {
-        // kurzes Play/Pause “primt” iOS
-        await v.play();
-        v.pause();
-        v.currentTime = 0;
-      } catch (_) {}
-    }
-  };
-  window.addEventListener('touchstart', unlock, { once: true });
-
-  const observer = new IntersectionObserver(async (entries) => {
-    for (const entry of entries) {
-      const frame = entry.target;
-      const image = frame.querySelector(".project-image");
-      const video = frame.querySelector(".project-video");
-
-      if (entry.isIntersecting) {
-        frame.classList.add("active");
-        image.style.opacity = "0";
-        video.style.opacity = "1";
-        const ok = await safePlay(video);
-        // Fallback: falls Autoplay dennoch blockiert, beim nächsten Tap versuchen
-        if (!ok) {
-          const onTouch = async () => {
-            await safePlay(video);
-            frame.removeEventListener('touchstart', onTouch);
-          };
-          frame.addEventListener('touchstart', onTouch, { once: true });
-        }
-      } else {
-        frame.classList.remove("active");
-        video.pause();
-        video.currentTime = 0;
-        video.style.opacity = "0";
-        image.style.opacity = "1";
-      }
-    }
-  }, observerOptions);
-
-  projectFrames.forEach(frame => observer.observe(frame));
 });
