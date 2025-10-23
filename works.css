@@ -71,6 +71,7 @@ main {
   max-width: 100%;
   max-height: 100%;
   object-fit: cover;
+  visibility:hidden;
   opacity: 0;          /* statt display:none */
   transition: opacity 0.3s ease;
   box-shadow: inset 0 0 5px rgba(214, 243, 0);
@@ -79,6 +80,20 @@ main {
 .project-frame:hover .project-video,
 .project-frame.active .project-video {
   opacity: 1;
+}
+
+.project-frame.playing .project-video{
+  visibility:visible;
+  opacity:1;
+}
+
+/* optional: WebKit-Startbutton unterdrücken */
+.project-video::-webkit-media-controls-start-playback-button{
+  display:none !important;
+  -webkit-appearance:none;
+}
+.project-video::-webkit-media-controls{
+  display:none !important;
 }
 
 /* Grid Anpassungen für verschiedene Bildschirmgrößen */
