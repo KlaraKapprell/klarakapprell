@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     video.currentTime = 0;
                     video.style.opacity = "0";
                     image.style.opacity = "1";
-}
+                }
 
             });
         }, observerOptions);
