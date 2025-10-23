@@ -81,6 +81,11 @@ main {
   opacity: 1;
 }
 
+/* Nur Kacheln OHNE Video -> Bild zoomt auf Hover */
+.project-frame:not(.video-frame):hover .project-image {
+  transform: scale(1.04);                                
+}
+
 /* Grid Anpassungen für verschiedene Bildschirmgrößen */
 @media (max-width: 1024px) {
   .project-grid {
