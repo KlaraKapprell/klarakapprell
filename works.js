@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 const image = frame.querySelector(".project-image");
                 const video = frame.querySelector(".project-video");
 
-                if (entry.isIntersecting) {
+            if (entry.isIntersecting) {
                 // Aktivieren (Video sichtbar machen)
                 frame.classList.add("active");
                 image.style.opacity = "0";
