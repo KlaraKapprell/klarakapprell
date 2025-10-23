@@ -1,82 +1,61 @@
-// einmaliger „Unlock“ beim ersten Touch (hilft, wenn Autoplay geblockt ist)
-let unlocked = false;
-const unlock = async () => {
-  if (unlocked) return;
-  unlocked = true;
-  document.querySelectorAll('.project-video').forEach(async v => {
-    v.muted = true;
-    v.playsInline = true;
-    v.setAttribute('playsinline', '');
-    v.setAttribute('webkit-playsinline', '');
-    try { await v.play(); v.pause(); v.currentTime = 0; } catch(_) {}
-  });
-};
-window.addEventListener('touchstart', unlock, { once:true });
-
-// Hilfsfunktion: sicher abspielen
-async function safePlay(video){
-  try{
-    video.muted = true;
-    video.playsInline = true;
-    video.setAttribute('playsinline','');
-    video.setAttribute('webkit-playsinline','');
-    if (video.readyState < 2) video.load();
-    await new Promise(r => setTimeout(r, 50)); // Reflow
-    await video.play();
-    return true;
-  }catch(e){ return false; }
-}
-
 document.addEventListener("DOMContentLoaded", () => {
     const projectFrames = document.querySelectorAll(".project-frame");
     const isTouchDevice = "ontouchstart" in window || navigator.maxTouchPoints;
 
-    if (isTouchDevice){
-    // Beobachter etwas toleranter als 100%
-    const observer = new IntersectionObserver(async (entries) => {
-      for (const entry of entries){
-        const frame = entry.target;
-        const image = frame.querySelector(".project-image");
-        const video = frame.querySelector(".project-video");
+    if (!isTouchDevice) {
+        // **Desktop: Original Hover Behavior**
+        projectFrames.forEach(frame => {
+            const image = frame.querySelector(".project-image");
+            const video = frame.querySelector(".project-video");
 
-        // Poster = Bild, verhindert schwarzes Frame + Overlay
-        if (!video.getAttribute('poster')) {
-          video.setAttribute('poster', image.currentSrc || image.src);
-        }
+            frame.addEventListener("mouseenter", () => {
+                image.style.display = "none"; // Hide image
+                video.style.display = "block"; // Show video
+                video.play(); // Start playing video
+            });
 
-        // Sichtbarkeit nur über opacity steuern
-        if (entry.isIntersecting){
-          frame.classList.add("active");
+            frame.addEventListener("mouseleave", () => {
+                video.style.display = "none"; // Hide video
+                image.style.display = "block"; // Show image again
+                video.pause(); // Pause video
+                video.currentTime = 0; // Reset video to the beginning
+            });
+        });
+    } else {
+        // **Mobile: Scroll-based Full-Frame Activation**
+        const observerOptions = {
+            root: null, // Viewport
+            rootMargin: "0px",
+            threshold: 1 // Activate when 100% is visible
+        };
 
-          // erst sichtbar machen, WENN es wirklich spielt
-          const onPlaying = () => {
-            frame.classList.add('playing');   // -> CSS zeigt Video
-            image.style.opacity = "0";
-            video.removeEventListener('playing', onPlaying);
-          };
-          video.addEventListener('playing', onPlaying);
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                const frame = entry.target;
+                const image = frame.querySelector(".project-image");
+                const video = frame.querySelector(".project-video");
 
-          const ok = await safePlay(video);
-          if (!ok){
-            // Fallback: beim ersten Tap auf den Frame starten
-            const onTap = async () => {
-              await safePlay(video);
-              frame.removeEventListener('touchstart', onTap);
-            };
-            frame.addEventListener('touchstart', onTap, { once:true });
-          }
-        } else {
-          frame.classList.remove("active", "playing");
-          video.pause();
-          video.currentTime = 0;
-          // Bild wieder zeigen
-          image.style.opacity = "1";
-        }
-      }
-    }, { threshold: 0.6 });
+                if (entry.isIntersecting) {
+                // Aktivieren (Video sichtbar machen)
+                frame.classList.add("active");
+                image.style.opacity = "0";
+                video.style.opacity = "1";
+                video.load(); // sicherstellen, dass das Video bereit ist
+                setTimeout(() => video.play(), 50); // kleiner Delay für iOS
+            } else {
+                // Deaktivieren (Video wieder ausblenden)
+                frame.classList.remove("active");
+                video.pause();
+                video.currentTime = 0;
+                video.style.opacity = "0";
+                image.style.opacity = "1";
+            }
+            });
+        }, observerOptions);
 
-    projectFrames.forEach(f => observer.observe(f));
-  }
+        // Observe all project frames
+        projectFrames.forEach(frame => observer.observe(frame));
+    }
 
     const projectImages = document.querySelectorAll(".project-image");
 
