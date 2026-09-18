@@ -1,122 +1,116 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Klara Kapprell</title>
-    <link rel="stylesheet" href="global.css">
-    <link rel="stylesheet" href="works.css">
-    <link rel="icon" type="image/png" href="media/favicon.png">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
-    <script defer src="global.js"></script>
-    <script defer src="menu-icon.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Klara Kapprell</title>
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/works.css">
+  <link rel="icon" type="image/png" href="media/favicon.png">
 </head>
 <body>
-  <header>
-    <nav class="header-nav">
-        <a href="klara-kapprell.html" class="klara-kapprell">
-          <span>Klara Kapprell</span>
-        </a>
-        <a href="works.html" class="works-button">Works</a>
-        <a href="info.html" class="header-button">Info</a>
-        <a href="index.html" id="menu-icon"></a>
-    </nav>
-  </header>
-    
-    <main>
-      <div class="project-grid">
-        <a href="terra.html">
-          <div class="project-frame video-frame">
-            <img class="project-image" src="media/teaser/Terra_Mockup.webp" loading="lazy">
-            <video class="project-video" preload="metadata" loop muted playsinline autoplay > 
-              <source src="media/teaser/Terra_Teaser.mp4" type="video/mp4">
-              Your browser does not support the video tag.
-            </video>
-          </div>
-        </a>
-        <a href="sag-mal.html">
-          <div class="project-frame video-frame">
-            <img class="project-image" src="media/teaser/SagMal_Start.webp" loading="lazy">
-            <video class="project-video" preload="metadata" loop muted playsinline autoplay > 
-              <source src="media/teaser/SagMal_Teaser.mp4" type="video/mp4">
-              Your browser does not support the video tag.
-            </video>
-          </div>
-        </a>
-        <a href="kikue.html">
-          <div class="project-frame video-frame">
-            <img class="project-image" src="media/teaser/KIKUE_Cover.webp" loading="lazy">
-            <video class="project-video" preload="metadata" loop muted playsinline autoplay > 
-              <source src="media/teaser/KIKUE_Teaser.mp4" type="video/mp4">
-              Your browser does not support the video tag.
-            </video>
-          </div>
-        </a>
-        <a href="korallen.html">
-          <div class="project-frame video-frame">
-            <img class="project-image" src="media/teaser/Korallen_Cover_WEB2.webp" loading="lazy">
-            <video class="project-video" preload="metadata" loop muted playsinline autoplay > 
-              <source src="media/teaser/Korallen_Teaser.mp4" type="video/mp4">
-              Your browser does not support the video tag.
-            </video>
-          </div>
-        </a>
-        <a href="drawing-machine.html">
-          <div class="project-frame video-frame">
-            <img class="project-image" src="media/teaser/Web_drawing.machine_thumb_2.webp" loading="lazy">
-            <video class="project-video" preload="metadata" loop muted playsinline autoplay > 
-              <source src="media/teaser/Draw_Teaser_small.mp4" type="video/mp4" media="(max-width: 768px)">
-              <source src="media/teaser/Draw_Teaser.mp4" type="video/mp4">
-              Your browser does not support the video tag.
-            </video>
-          </div>
-        </a>
-        <a href="endo-app.html">
-          <div class="project-frame video-frame">
-            <img class="project-image" src="media/teaser/endoApp.webp" loading="lazy">
-            <video class="project-video" preload="metadata" loop muted playsinline autoplay > 
-              <source src="media/teaser/Endo_Teaser.mp4" type="video/mp4">
-              Your browser does not support the video tag.
-            </video>
-          </div>
-        </a>
-        <a href="keke.html">
-          <div class="project-frame video-frame">
-            <img class="project-image" src="media/teaser/Buch_Cover1.webp" loading="lazy">
-            <video class="project-video" preload="metadata" loop muted playsinline autoplay > 
-              <source src="media/teaser/Keke_Teaser.mp4" type="video/mp4">
-              Your browser does not support the video tag.
-            </video>
-          </div>
-        </a>
-        <a href="horse.html">
-          <div class="project-frame video-frame">
-            <img class="project-image" src="media/teaser/Magazin_thumb.webp" loading="lazy">
-            <video class="project-video" preload="metadata" loop muted playsinline autoplay > 
-              <source src="media/teaser/Horse_Teaser.mp4" type="video/mp4">
-              Your browser does not support the video tag.
-            </video>
-          </div>
-        </a>
-        <a href="lecture.html">
-          <div class="project-frame video-frame">
-            <img class="project-image" src="media/teaser/Plakat_Lecture 1.webp" loading="lazy">
-            <video class="project-video" preload="metadata" loop muted playsinline autoplay > 
-              <source src="media/teaser/Lecture_Teaser.mp4" type="video/mp4">
-              Your browser does not support the video tag.
-            </video>
-          </div>
-        </a>
-      </div>
-    </main>
-    
-    <footer>
-      <a href="impressum.html" class="impressum-button">
-        <span>i</span>
-      </a>
-      <a href="mailto:hallo@klarakapprell.de" class="say-hi">Say Hi!</a>
-    </footer>
 
-    <script defer src="works.js"></script>
+  <header>
+    <a href="index.html" class="nav-logo" id="nav-logo">Klara Kapprell</a>
+    <div class="menu">
+      <nav class="nav" id="nav">
+        <ul>
+          <li>
+            <a href="works.html">Works</a>
+          </li>
+          <li>
+            <a href="about.html">About</a>
+          </li>
+          <li>
+            <a href="imprint.html">Imprint</a>
+          </li>
+          <li>
+            <a href="mailto:hallo@klarakapprell.de" class="mail" id="mail">Say Hi!</a>
+          </li>
+          <li>
+            <div href="index.html" id="menu-icon"></div>
+          </li>
+        </ul>
+      </nav>
+      <button type="button" class="lang-toggle" id="lang-toggle" data-target="en" aria-label="Switch to English">EN</button>
+      <div class="nav-toggle" id="nav-toggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="project-grid" id="project-grid">
+      <!-- Projekt-Karte – dieses Muster für jedes Projekt wiederholen -->
+      <a href="berlin-authors.html" class="project-card is-landscape" data-tags="print">
+        <div class="project-card__media">
+          <img src="media/projects/BerlinAuthors/Kapprell_VierUhrMorgens-03.webp" alt="Vier Uhr morgens" loading="lazy">
+        </div>
+        <p class="project-card__title" data-en="Four in the Morning">Vier Uhr morgens</p>
+      </a>
+      <a href="terra.html" class="project-card is-landscape" data-tags="print, editorial, digital">
+        <div class="project-card__media">
+          <img src="media/projects/terra/Kapprell_Terra-01.webp" alt="Das Schulbuch – gedruckter Anachronismus?!" loading="lazy">
+        </div>
+        <p class="project-card__title" data-en="The Textbook – Printed Anachronism?!">Das Schulbuch – gedruckter Anachronismus?!</p>
+      </a>
+      <a href="sag-mal.html" class="project-card is-portrait" data-tags="digital">
+        <div class="project-card__media">
+          <img src="media/projects/sagMal/Kapprell_SagMal-01.webp" alt="Sag mal ...?" loading="lazy">
+        </div>
+        <p class="project-card__title" data-en="Tell me ...?">Sag mal ...?</p>
+      </a>
+      <a href="kikue.html" class="project-card is-portrait" data-tags="concept">
+        <div class="project-card__media">
+          <img src="media/projects/kikue/Kapprell_kikue-01.webp" alt="KIKÜ" loading="lazy">
+        </div>
+        <p class="project-card__title">KIKÜ</p>
+      </a>
+      <a href="korallen.html" class="project-card is-landscape" data-tags="print">
+        <div class="project-card__media">
+          <img src="media/projects/korallen/Kapprell_Korallen-01.webp" alt="Korallen" loading="lazy">
+        </div>
+        <p class="project-card__title" data-en="Corals">Korallen</p>
+      </a>
+      <a href="endo-app.html" class="project-card is-portrait" data-tags="digital">
+        <div class="project-card__media">
+          <img src="media/projects/endo/Kapprell_endo-03.webp" alt="Endo" loading="lazy">
+        </div>
+        <p class="project-card__title">Endo</p>
+      </a>
+      <a href="drawing-machine.html" class="project-card is-landscape" data-tags="digital">
+        <div class="project-card__media">
+          <img src="media/projects/drawingMachine/Kapprell_drawingMachine-01.webp" alt="drawing.machine" loading="lazy">
+        </div>
+        <p class="project-card__title">drawing.machine</p>
+      </a>
+      <!-- weitere Karten... -->
+    </div>
+    <div class="grid-controls">
+      <div class="filter-dropdown" id="filter-dropdown">
+      <button class="filter-trigger" id="filter-trigger">Filter ↑</button>
+      <div class="filter-menu" id="filter-menu">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="editorial">Editorial</button>
+        <button class="filter-btn" data-filter="digital">Digital</button>
+        <button class="filter-btn" data-filter="print">Print</button>
+        <button class="filter-btn" data-filter="concept">Concept</button>
+      </div>
+    </div>
+      <input id="grid-slider" type="range" min="1" max="4" value="3" step="1" aria-label="Grid-Größe anpassen" data-en-aria-label="Adjust grid size">
+    </div>
+  </main>
+
+  <footer>
+  </footer>
+
+  <script src="js/nav.js"></script>
+  <script src="js/lang.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+  <script src="js/menu-icon.js"></script>
+  <script src="js/works.js"></script>
+
 </body>
 </html>

@@ -1,0 +1,15 @@
+# macOS
+.DS_Store
+
+# Bildoriginale – die Website lädt nur die WEBP-Fassungen
+*.jpg
+*.jpeg
+*.psd
+*.tif
+media/projects/BerlinAuthors/Berlin-Authors_Mockup.png
+media/projects/drawingMachine/Kapprell_drawingMachine-06.png
+
+# Arbeitsdateien, gehören nicht auf die Website
+junk/
+fraunces/
+basis.html

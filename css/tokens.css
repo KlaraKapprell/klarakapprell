@@ -1,0 +1,87 @@
+/* ============================================
+   DESIGN TOKENS
+   Alle Farben, Schriften und Abstände hier
+   ändern – gilt automatisch für die gesamte Site
+   ============================================ */
+
+:root {
+
+  /* --- Farben --- */
+  --color-primary:     rgb(0, 0, 0);   /* Magenta – Akzentfarbe */
+  --color-accent:      rgb(214, 243, 0);    /* Gelbgrün */
+  --color-bg:          rgb(255, 255, 255);             /* Seitenhintergrund */
+  --color-text:        rgb(0, 0, 0);             /* Haupttext */
+  --color-muted:       rgb(229, 229, 229);  /* Grau für Kacheln etc. */
+  --color-nav-overlay: #ffffff;             /* Hintergrund Hamburger-Overlay */
+
+  /* --- Akzentpalette (von der About-Seite) --- */
+  --color-lime:        rgb(214, 243, 0);
+  --color-pink:        rgb(254, 118, 254);
+  --color-green:       rgb(0, 223, 115);
+  --color-orange:      rgb(255, 80, 0);
+  --color-blue:        rgb(49, 75, 245);
+
+  /* --- Typografie --- */
+  --font-main:         'UncutSans', sans-serif;
+  --font-weight-normal: 400;
+  --font-weight-bold:   600;
+
+  /* --- Schriftgrößen (fluid) --- */
+  --text-xs:     clamp(12px, 1.5vw, 14px);
+  --text-s:      clamp(14px, 2vw,   16px);
+  --text-m:      clamp(16px, 2.5vw, 20px);
+  --text-l:      clamp(20px, 3vw,   24px);
+  --text-xl:     clamp(24px, 4vw,   36px);
+  --text-nav:    clamp(32px, 5vw,   36px);
+
+  /* --- Abstände --- */
+  --space-2xs:  4px;
+  --space-xs:   8px;
+  --space-s:    16px;
+  --space-m:    24px;
+  --space-l:    40px;
+  --space-xl:   64px;
+  --space-2xl:  96px;
+
+  /* --- Konturen --- */
+  --stroke: 2px;    /* Rahmen von Buttons, Pillen und Formen */
+  --bar:    10px;   /* Balken von Menü-Icon und Zurück-Pfeil */
+
+  /* --- Radien --- */
+  --radius-s:    8px;
+  --radius-m:    20px;
+  --radius-pill: 30px;
+
+  /* --- Übergänge --- */
+  --transition-fast:   150ms ease;
+  --transition-normal: 300ms ease;
+
+  /* --- Layout --- */
+  --page-padding-x: var(--space-s);   /* Mobile: 16px */
+  --nav-height:     60px;
+  --lang-toggle-w:  72px;   /* Breite des Sprach-Buttons (mobil unten links) */
+}
+
+/* Handy: feinere Konturen, damit die Proportionen denen
+   auf großen Schirmen entsprechen */
+@media (max-width: 768px) {
+  :root {
+    --stroke: 1.5px;
+    --bar:    8px;
+  }
+}
+
+/* Tablet */
+@media (min-width: 600px) {
+  :root {
+    --page-padding-x: 28px;  /* 24px */
+  }
+}
+
+/* Desktop */
+@media (min-width: 900px) {
+  :root {
+    --page-padding-x: 28px;  /* 40px */
+    --nav-height:     72px;
+  }
+}

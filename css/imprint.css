@@ -1,0 +1,12 @@
+/* Impressum – ergänzt das CV-Layout aus about.css */
+
+/* Alles untereinander, auch auf dem Desktop */
+main.grid-container {
+  grid-template-columns: 1fr;
+  max-width: 800px;
+}
+
+.cv-item--legal .cv-content {
+  hyphens: auto;
+  -webkit-hyphens: auto;
+}

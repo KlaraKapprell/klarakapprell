@@ -1,0 +1,252 @@
+html, body {
+    /* Für Firefox */
+    scrollbar-width: none;
+    
+    /* Für Internet Explorer / Edge */
+    -ms-overflow-style: none;
+  }
+
+  /* Für Chrome, Safari und Opera */
+  html::-webkit-scrollbar,
+  body::-webkit-scrollbar {
+    display: none;
+  }
+  
+.back-toggle {
+  position: fixed;
+  right: clamp(12px, 2.5vh, 56px);
+  z-index: 1200;
+  bottom: 10px;
+  width: clamp(42px, 6vw, 48px);
+  height: clamp(42px, 6vw, 48px);
+  display: flex;
+  flex-direction: column;
+}
+
+.back-toggle span {
+  width: 100%;
+  height: var(--bar);
+  background: var(--color-primary);
+  border-radius: 999px;
+  display: block;
+  transition: transform .25s ease, opacity .25s ease;
+  transform-origin: left center;
+}
+
+.back-toggle span:nth-child(1) {
+  transform: translateY(calc(var(--bar) * 1.325)) rotate(-45deg);
+  width: clamp(32px, 4vw, 38px);
+}
+
+.back-toggle span:nth-child(2) {
+  opacity: 1;
+  width: clamp(42px, 6vw, 48px);
+}
+
+.back-toggle span:nth-child(3) {
+  transform: translateY(calc(var(--bar) * -1.325)) rotate(45deg);
+  width: clamp(32px, 4vw, 38px);
+}
+
+.project-container {
+  position: static;
+  display: grid;
+  width: 100%;
+  box-sizing: border-box;
+  padding-top: clamp(12px, 2.5vh, 56px);
+  grid-template-columns: 1fr 1fr;
+  column-gap: clamp(14px, 5vh, 56px);
+  padding-bottom: clamp(48px, 9vw, 86px);
+  left: 0;
+}
+
+.project-images--desktop {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.project-image {
+  display: block;
+}
+
+.project-image img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+/* Bildgruppen – mehrere Bilder nebeneinander in einer Reihe, wie im Portfolio-PDF.
+   Gilt nur auf Desktop; auf Mobile lösen sich Gruppen (siehe Media Query unten)
+   wieder in einzelne Karussell-Bilder auf, ganz ohne Gruppen-Layout. */
+@media (min-width: 1201px) {
+  .image-group {
+    display: flex;
+    gap: 24px;
+  }
+
+  .image-group .project-image {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+
+  .image-group.is-lead .project-image:first-child {
+    flex: 2 1 0;
+  }
+
+  /* Einzelne Hochformate (nicht in einer Gruppe) stehen in halber Spaltenbreite
+     und wechseln sich ab: das erste rechtsbündig, dann links, rechts, links ...
+     Jede Kette trifft ab dem n-ten Hochformat und überschreibt die vorherige.
+     60dvh Breite entspricht bei 2:3 einer Höhe von 90dvh – nie höher als der Schirm. */
+  .project-images--desktop > .project-image.is-portrait {
+    width: 50%;
+    max-width: 60dvh;
+    margin-left: auto;
+    margin-right: 0;
+  }
+
+  .project-images--desktop > .project-image.is-portrait ~ .project-image.is-portrait {
+    margin-left: 0;
+    margin-right: auto;
+  }
+
+  .project-images--desktop > .project-image.is-portrait ~ .project-image.is-portrait ~ .project-image.is-portrait {
+    margin-left: auto;
+    margin-right: 0;
+  }
+
+  .project-images--desktop > .project-image.is-portrait ~ .project-image.is-portrait ~ .project-image.is-portrait ~ .project-image.is-portrait {
+    margin-left: 0;
+    margin-right: auto;
+  }
+
+  .project-images--desktop > .project-image.is-portrait ~ .project-image.is-portrait ~ .project-image.is-portrait ~ .project-image.is-portrait ~ .project-image.is-portrait {
+    margin-left: auto;
+    margin-right: 0;
+  }
+
+  .project-images--desktop > .project-image.is-portrait ~ .project-image.is-portrait ~ .project-image.is-portrait ~ .project-image.is-portrait ~ .project-image.is-portrait ~ .project-image.is-portrait {
+    margin-left: 0;
+    margin-right: auto;
+  }
+}
+
+.project-info {
+  position: fixed;
+  top: calc(clamp(12px, 2.5vh, 56px) + var(--space-m) + var(--text-nav) + var(--space-s));
+  left: 50%;
+  margin-left: calc(clamp(14px, 5vh, 56px) / 2);
+  right: var(--page-padding-x, 20px); 
+  height: auto;
+  width: auto;
+  max-width: 100%;
+}
+
+.project-title {
+  font-size: var(--text-nav);
+  hyphens: none;
+  -webkit-hyphens: none; /* Für Safari */
+}
+
+.project-text {
+  font-size: var(--text-l);
+  font-weight: var(--font-weight-normal);
+  padding-bottom: clamp(48px, 9vw, 86px);
+}
+
+.project-detail {
+  font-size: var(--text-m);
+  font-weight: var(--font-weight-normal);
+  border-bottom: 1px solid var(--color-text);
+  padding-bottom: var(--space-xs);
+  padding-top: var(--space-xs);
+}
+
+.link {
+  cursor: pointer;
+  text-decoration: none;
+  transition: text-decoration 0.4s ease-in-out
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 1200px) {
+  
+  .project-container {
+    position: relative; /* Hebt das absolute auf, damit die Seite normal scrollt */
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 32px;
+    padding-top: clamp(12px, 2.5vh, 28px);
+    padding-bottom: 100px; /* Platz für den back-toggle */
+  }
+
+  /* --- Das mobile Karussell --- */
+  .project-images--desktop {
+    flex-direction: row;     /* Bilder nebeneinander */
+    overflow-x: auto;        /* Horizontales Scrollen erlauben */
+    scroll-snap-type: x mandatory; /* Snap-Effekt beim Swipen */
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    gap: 12px;
+    
+    /* Bricht aus dem Seiten-Padding aus für randloses Wischen */
+    margin-left: calc(var(--page-padding-x, 20px) * -1);
+    margin-right: calc(var(--page-padding-x, 20px) * -1);
+    padding-left: var(--page-padding-x, 20px);
+    padding-right: var(--page-padding-x, 20px);
+  }
+
+  /* Scrollbars auf Mobile verstecken */
+  .project-images--desktop::-webkit-scrollbar {
+    display: none;
+  }
+  .project-images--desktop {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  /* Bildgruppen lösen sich auf Mobile auf – jedes Bild wird wieder einzelnes Karussell-Element */
+  .image-group {
+    display: contents;
+  }
+
+  /* Basis-Einstellung für alle Bilder im Karussell */
+  .project-image {
+    scroll-snap-align: start;
+    flex-shrink: 0;
+    flex-grow: 0;
+    scroll-margin-left: var(--page-padding-x, 20px);
+  }
+
+  /* --- AUSGLEICH DER PROPORTIONEN --- */
+  
+  /* Querformat-Bilder nehmen wie gewohnt den Großteil des Bildschirms ein */
+  .project-image.is-landscape {
+    flex-basis: 99%; 
+  }
+
+  /* Hochformat-Bilder werden schmaler geklammert, damit sie nicht den Bildschirm sprengen */
+  .project-image.is-portrait {
+    flex-basis: 66%; /* Verhindert, dass das Hochformat vertikal riesig wird */
+  }
+
+  .project-image img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+
+  .project-info {
+    /* Setzt das fixed vom Desktop komplett zurück */
+    position: relative;
+    left: auto;
+    margin-left: 0;
+    right: auto;
+    top: auto;
+    width: 100%; /* Nutzt die volle Breite auf dem Smartphone */
+  }
+}

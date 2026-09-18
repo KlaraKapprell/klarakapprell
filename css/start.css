@@ -1,0 +1,190 @@
+/* ============================================
+   STARTSEITE
+   Name in variabler Schrift + verschiebbare Formen
+   ============================================ */
+
+:root {
+  --shape-w: clamp(92px, 16vw, 230px);
+}
+
+/* Menü über allem halten */
+header {
+  position: relative;
+  z-index: 1000;
+}
+
+/* Der Name steht hier ohnehin groß auf der Seite, das Logo im Header
+   wäre doppelt. Der Sprach-Button betrifft nur Fließtext, den es hier
+   nicht gibt – er bleibt im HTML, damit lang.js weiter greift. */
+.nav-logo,
+.lang-toggle {
+  display: none;
+}
+
+.start-stage {
+  position: relative;
+  overflow: hidden;
+  padding-top: 0;
+  padding-bottom: 0;
+  min-height: 65vh;
+  touch-action: none;   /* damit Ziehen nicht scrollt */
+}
+
+/* --- Name --- */
+.typo-name {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  z-index: 1;    /* die Formen liegen davor */
+  /* Startwert – die Schriftgröße wird in JS exakt auf die Breite gerechnet */
+  font-size: 15vw;
+  line-height: 0.82;
+  font-weight: 500;
+  text-align: left;
+  white-space: nowrap;
+  user-select: none;
+  -webkit-user-select: none;
+  /* Klicks gehen durch die Schrift hindurch zu den Formen dahinter */
+  pointer-events: none;
+}
+
+.typo-line {
+  display: block;
+}
+
+.typo-letter {
+  display: inline-block;
+  /* Breite wird in JS auf die Breite im fettesten Schnitt festgesetzt,
+     damit die Buchstaben beim Dickerwerden nicht hin- und herrutschen. */
+  text-align: center;
+  font-weight: 500;
+  color: var(--color-text);
+  will-change: font-weight, transform;
+}
+
+/* --- Formen --- */
+.shape {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;   /* vor dem Namen */
+  width: calc(var(--shape-w) * var(--s, 1));
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  will-change: transform;
+}
+
+.shape.is-held {
+  cursor: grabbing;
+  z-index: 200 !important;   /* beim Ziehen über den Namen */
+}
+
+.shape__body {
+  width: 100%;
+  line-height: 0;
+}
+
+.shape svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;   /* die Kontur soll nicht abgeschnitten werden */
+}
+
+/* Kontur wie bei den Buttons: konstant 2px, unabhängig von der Größe */
+.shape svg circle,
+.shape svg path,
+.shape svg rect {
+  stroke: var(--color-primary);
+  stroke-width: var(--stroke);
+  vector-effect: non-scaling-stroke;
+}
+
+.fill-lime   { fill: var(--color-lime); }
+.fill-pink   { fill: var(--color-pink); }
+.fill-green  { fill: var(--color-green); }
+.fill-orange { fill: var(--color-orange); }
+.fill-blue   { fill: var(--color-blue); }
+
+/* --- Augen --- */
+.shape--eyes {
+  border: var(--stroke) solid var(--color-primary);
+  background-color: var(--color-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8%;
+  aspect-ratio: 2 / 1;
+  border-radius: var(--radius-pill);
+}
+
+.shape--eyes .eye {
+  position: relative;
+  width: 38%;
+  aspect-ratio: 1 / 1;
+  border: var(--stroke) solid var(--color-primary);
+  border-radius: 50%;
+  background-color: var(--color-bg);
+}
+
+.shape--eyes .eye i {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 45%;
+  height: 45%;
+  margin: -22.5% 0 0 -22.5%;
+  border-radius: 50%;
+  background-color: var(--color-primary);
+}
+
+/* --- Eigenbewegung der Formen ---
+   Läuft auf dem inneren Element, damit sie sich nicht mit dem
+   Verschieben beißt, das auf dem äußeren Element sitzt. */
+.anim-pulse  { animation: shapePulse  3.4s ease-in-out infinite; }
+.anim-spin   { animation: shapeSpin   14s  linear      infinite; }
+.anim-sway   { animation: shapeSway   5.5s ease-in-out infinite; }
+.anim-wobble { animation: shapeWobble 4.2s ease-in-out infinite; }
+
+@keyframes shapePulse {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.18); }
+}
+
+@keyframes shapeSpin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes shapeSway {
+  0%, 100% { transform: rotate(-7deg); }
+  50%      { transform: rotate(7deg); }
+}
+
+@keyframes shapeWobble {
+  0%, 100% { transform: rotate(0deg)   scale(1); }
+  35%      { transform: rotate(14deg)  scale(1.06); }
+  70%      { transform: rotate(-10deg) scale(0.96); }
+}
+
+/* --- Handy: weniger Formen, dafür deutlich größer --- */
+@media (max-width: 768px) {
+  :root {
+    --shape-w: clamp(120px, 36vw, 200px);
+  }
+
+  .shape--desktop {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .anim-pulse,
+  .anim-spin,
+  .anim-sway,
+  .anim-wobble {
+    animation: none;
+  }
+}

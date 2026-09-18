@@ -1,0 +1,247 @@
+/* ============================================
+   GLOBAL STYLES
+   Reset, Basis-Typografie, Nav, Footer
+   ============================================ */
+
+@import './tokens.css';
+
+/* --- Font --- */
+@font-face {
+  font-family: 'UncutSans';
+  src: url('../uncut-sans/UncutSans-Variable.woff2') format('woff2');
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+/* --- Reset --- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  -webkit-text-size-adjust: 100%; /* Verhindert Auto-Zoom auf iOS */
+}
+
+.menu {
+    position: fixed;
+    top: clamp(12px, 2.5vh, 16px);
+    right: var(--page-padding-x);
+    width: auto;
+    max-width: calc(100dvw - (var(--page-padding-x) * 2));
+    overflow: visible;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: clamp(10px, 2vw, 22px);
+    pointer-events: none;
+    z-index: 9999;
+}
+
+body {
+  font-family: var(--font-main);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--text-m);
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  padding: var(--space-s) var(--page-padding-x);
+  min-height: 100dvh;             /* dvh = korrekte Höhe auf Mobile (kein Browser-Chrome-Problem) */
+  display: flex;
+  flex-direction: column;
+}
+
+img, video {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+#menu-icon {
+    width: clamp(45px, 10vw, 50px);
+    height: clamp(45px, 10vw, 50px);
+    display: block;
+    padding: 5px 10px;
+}
+
+#menu-icon:hover {
+  transform: scale(1.2);
+}
+
+/* --- Navigation --- */
+.nav {
+  min-width: 150px;
+  max-width: 600px;
+  opacity: 0;
+  transform: translateY(-6px);
+  transition: opacity .2s ease, transform .2s ease;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+.nav.active {
+    opacity: 1;
+    transform: translateY(0);
+    transition: all 0.3 ease;
+    pointer-events: auto;
+}
+
+.nav ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.nav a,
+.lang-toggle {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    color: var(--color-primary);
+    font-size: var(--text-nav);
+    line-height: 1.05;
+    padding: 2.5px 10px 5px 10px;
+    border: var(--stroke) solid;
+    border-radius: var(--radius-pill);
+    border-color: var(--color-primary);
+    max-width: 100%;
+    white-space: nowrap;
+    background-color: var(--color-bg);
+    background-image: linear-gradient(to right, var(--color-primary), var(--color-primary));
+    background-size: 0% 100%;
+    background-repeat: no-repeat;
+    background-position: left;
+    transition: background-size 0.4s ease-in-out, color 0.4s ease-in-out, border-color 0.4s ease-in-out;
+}
+
+.nav a:hover,
+.lang-toggle:hover {
+  background-size: 100% 100%;
+  color: var(--color-bg);
+  border-color: var(--color-primary);
+}
+
+.lang-toggle {
+  flex: 0 0 auto;
+  font-family: inherit;
+  font-weight: inherit;
+  cursor: pointer;
+  pointer-events: auto;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.lang-toggle.is-hidden {
+  display: none;
+}
+
+.lang-toggle[data-target="en"]:hover::after {
+  content: "\00a0🇬🇧";
+}
+
+.lang-toggle[data-target="de"]:hover::after {
+  content: "\00a0🇩🇪";
+}
+
+/* Mobil: Sprach-Button unten links, in voller Button-Größe */
+@media (max-width: 768px) {
+  .lang-toggle {
+    position: fixed;
+    left: var(--page-padding-x);
+    bottom: clamp(12px, 3vh, 28px);
+    min-width: var(--lang-toggle-w);
+    justify-content: center;
+    z-index: 1300;
+  }
+
+  /* Platz, damit der Button den letzten Absatz nicht überdeckt */
+  main.grid-container {
+    padding-bottom: 110px;
+  }
+}
+
+.nav-logo {
+  color: var(--color-text);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--text-nav);
+  white-space: nowrap;
+  transition: opacity 0.25s ease;
+}
+
+.nav-logo.invisible {
+    opacity: 0;
+}
+
+.nav-toggle {
+  flex: 0 0 auto;
+  width: clamp(42px, 6vw, 48px);
+  height: clamp(42px, 6vw, 48px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  pointer-events: auto;
+  cursor: pointer;
+  z-index: 9999;
+}
+
+.nav-toggle span {
+    height: var(--bar);
+    width: 100%;
+    background: var(--color-primary);
+    border-radius: 999px;
+    transition: transform .25s ease, opacity .25s ease;
+    transform-origin: center;
+}
+
+.nav-toggle.open span:nth-child(1) {
+    transform: translateY(calc(var(--bar) + 5px)) rotate(45deg);
+}
+
+.nav-toggle.open span:nth-child(2) {
+    opacity: 0;
+}
+
+.nav-toggle.open span:nth-child(3) {
+    transform: translateY(calc(-1 * (var(--bar) + 5px))) rotate(-45deg);
+}
+
+.mail {
+  color: var(--color-primary);
+  font-size: var(--text-nav);
+  text-align: right;
+  text-decoration: none;
+}
+
+.mail:hover::after {
+  content: " 👀"
+}
+
+/* --- Main --- */
+main {
+  flex: 1;                         /* Füllt den Raum zwischen Nav und Footer */
+  padding-top: var(--space-m);
+  padding-bottom: var(--space-l);
+}
+
+/* --- Footer --- */
+footer {
+  position: sticky;
+  bottom: 0;
+  z-index: 10;
+  background-color: transparent;
+  padding: var(--space-s) 0;    /* gleiche Werte wie in global.css */
+  height: var(--nav-height);    /* gleiche Höhe wie die Nav */
+  align-items: center;
+}

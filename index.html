@@ -1,51 +1,168 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Offizielle Website von Klara Kapprell – Kommunikationsdesignerin mit Fokus auf spielerisches Grafikdesign und Bildungsmedien.">
-    <title>Klara Kapprell</title>
-    <link rel="stylesheet" href="global.css">
-    <link rel="stylesheet" href="index.css">
-    <link rel="icon" type="image/png" href="media/favicon.png">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.min.js"></script>
-    <script defer src="global.js"></script>
-    <script defer src="menu-icon.js"></script>
-    <script defer src="playground.js"></script>
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "Person",
-        "name": "Klara Kapprell",
-        "url": "https://klarakapprell.de",
-        "sameAs": "https://www.instagram.com/klara.kapprell",
-        "description": "Kommunikationsdesignerin mit Fokus auf spielerisches Grafikdesign und Bildungsmedien."
-        "image": "https://klarakapprell.de/media/favicon.png"
-      }
-      </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Klara Kapprell – Kommunikationsdesignerin mit Fokus auf spielerisches Grafikdesign und Bildungsmedien.">
+  <title>Klara Kapprell</title>
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/start.css">
+  <link rel="icon" type="image/png" href="media/favicon.png">
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Klara Kapprell",
+      "url": "https://klarakapprell.de",
+      "sameAs": "https://www.instagram.com/klara.kapprell",
+      "description": "Kommunikationsdesignerin mit Fokus auf spielerisches Grafikdesign und Bildungsmedien.",
+      "image": "https://klarakapprell.de/media/favicon.png"
+    }
+  </script>
 </head>
 <body>
-    <header>
-        <nav class="header-nav">
-            <a class="klara-kapprell">
-              <span>Klara Kapprell</span>
-            </a>
-            <a href="works.html" class="header-button">Works</a>
-            <a href="info.html" class="header-button">Info</a>
-            <a href="index.html" id="menu-icon"></a>
-        </nav>
-      </header>
-      
-      <main>
-      </main>
-      
-      <footer>
-        <a href="impressum.html" class="impressum-button">
-          <span>i</span>
-        </a>
-        <a href="mailto:hallo@klarakapprell.de" class="say-hi">Say Hi!</a>
-      </footer>
 
-    <div id="playground"></div>
+  <header>
+    <a href="index.html" class="nav-logo" id="nav-logo">Klara Kapprell</a>
+    <div class="menu">
+      <nav class="nav" id="nav">
+        <ul>
+          <li>
+            <a href="works.html">Works</a>
+          </li>
+          <li>
+            <a href="about.html">About</a>
+          </li>
+          <li>
+            <a href="imprint.html">Imprint</a>
+          </li>
+          <li>
+            <a href="mailto:hallo@klarakapprell.de" class="mail" id="mail">Say Hi!</a>
+          </li>
+          <li>
+            <div href="index.html" id="menu-icon"></div>
+          </li>
+        </ul>
+      </nav>
+      <button type="button" class="lang-toggle" id="lang-toggle" data-target="en" aria-label="Switch to English">EN</button>
+      <div class="nav-toggle" id="nav-toggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </header>
+
+  <main class="start-stage" id="start-stage">
+
+    <!-- Formen: liegen vor dem Namen, lassen sich ziehen und werfen.
+         data-size  = Größe, Vielfaches von --shape-w
+         data-float = Driftgeschwindigkeit, 0 heißt liegenbleiben -->
+
+    <!-- Blume -->
+    <div class="shape" data-size="1.15" data-float="0.2">
+      <div class="shape__body anim-sway">
+        <svg viewBox="0 0 100 100" aria-hidden="true">
+          <circle class="fill-pink" cx="50"   cy="22" r="22"/>
+          <circle class="fill-pink" cx="74.3" cy="36" r="22"/>
+          <circle class="fill-pink" cx="74.3" cy="64" r="22"/>
+          <circle class="fill-pink" cx="50"   cy="78" r="22"/>
+          <circle class="fill-pink" cx="25.7" cy="64" r="22"/>
+          <circle class="fill-pink" cx="25.7" cy="36" r="22"/>
+          <circle class="fill-lime" cx="50"   cy="50" r="18"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Kleeblatt -->
+    <div class="shape" data-size="0.95" data-float="0.26">
+      <div class="shape__body anim-wobble">
+        <svg viewBox="0 0 100 100" aria-hidden="true">
+          <circle class="fill-green" cx="50" cy="26" r="24"/>
+          <circle class="fill-green" cx="74" cy="50" r="24"/>
+          <circle class="fill-green" cx="50" cy="74" r="24"/>
+          <circle class="fill-green" cx="26" cy="50" r="24"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Funkeln -->
+    <div class="shape" data-size="0.8" data-float="0.32">
+      <div class="shape__body anim-pulse">
+        <svg viewBox="0 0 100 100" aria-hidden="true">
+          <path class="fill-lime" d="M50 3 C54 33 67 46 97 50 C67 54 54 67 50 97 C46 67 33 54 3 50 C33 46 46 33 50 3 Z"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Tropfen -->
+    <div class="shape" data-size="0.75" data-float="0.22">
+      <div class="shape__body anim-sway">
+        <svg viewBox="0 0 100 100" aria-hidden="true">
+          <path class="fill-blue" d="M50 4 C50 4 88 45 88 62 A38 38 0 0 1 12 62 C12 45 50 4 50 4 Z"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Bogen -->
+    <div class="shape shape--desktop" data-size="1" data-float="0">
+      <div class="shape__body">
+        <svg viewBox="0 0 100 54" aria-hidden="true">
+          <path class="fill-orange" d="M2 52 A48 48 0 0 1 98 52 Z"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Plus -->
+    <div class="shape shape--desktop" data-size="0.7" data-float="0.3">
+      <div class="shape__body anim-spin">
+        <svg viewBox="0 0 100 100" aria-hidden="true">
+          <path class="fill-blue" d="M46 4 h8 a10 10 0 0 1 10 10 v22 h22 a10 10 0 0 1 10 10 v8 a10 10 0 0 1 -10 10 h-22 v22 a10 10 0 0 1 -10 10 h-8 a10 10 0 0 1 -10 -10 v-22 h-22 a10 10 0 0 1 -10 -10 v-8 a10 10 0 0 1 10 -10 h22 v-22 a10 10 0 0 1 10 -10 Z"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Ring -->
+    <div class="shape shape--desktop" data-size="0.9" data-float="0.18">
+      <div class="shape__body">
+        <svg viewBox="0 0 100 100" aria-hidden="true">
+          <path class="fill-lime" fill-rule="evenodd" d="M2 50 A48 48 0 1 0 98 50 A48 48 0 1 0 2 50 Z M26 50 A24 24 0 1 0 74 50 A24 24 0 1 0 26 50 Z"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Pille -->
+    <div class="shape shape--desktop" data-size="1.1" data-float="0.14">
+      <div class="shape__body anim-sway">
+        <svg viewBox="0 0 100 42" aria-hidden="true">
+          <rect class="fill-orange" x="1" y="1" width="98" height="40" rx="20"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Augen, die mitschauen -->
+    <div class="shape" data-size="1" data-float="0.12">
+      <div class="shape__body shape--eyes">
+        <span class="eye"><i></i></span>
+        <span class="eye"><i></i></span>
+      </div>
+    </div>
+
+    <h1 class="typo-name" id="typo-name" aria-label="Klara Kapprell">
+      <span class="typo-line" data-word="Klara"></span>
+      <span class="typo-line" data-word="Kapprell"></span>
+    </h1>
+
+  </main>
+
+  <footer>
+  </footer>
+
+  <script src="js/nav.js"></script>
+  <script src="js/lang.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+  <script src="js/menu-icon.js"></script>
+  <script src="js/start.js"></script>
+
 </body>
 </html>
