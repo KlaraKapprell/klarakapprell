@@ -65,6 +65,9 @@ ul, ol {
   list-style: none;
 }
 
+/* Zurzeit nicht eingebunden – das Icon ist aus der Navigation genommen.
+   Zum Zurückholen: in den Seiten das <li> mit dem Icon und die beiden
+   Skripte js/lib/p5.min.js und js/menu-icon.js wieder eintragen. */
 #menu-icon {
     width: clamp(45px, 10vw, 50px);
     height: clamp(45px, 10vw, 50px);
