@@ -1,112 +1,133 @@
 /* ============================================
-   WORKS – Grid-Slider & Filter-System
+   WORKS – Raster, Slider und Filter
+   Jede Karte bekommt ihren Platz ausgerechnet: mit Lücken
+   daneben und Versatz nach unten, statt dicht gepackt.
+   Die beiden Muster unten bestimmen den Rhythmus.
    ============================================ */
 
 document.addEventListener('DOMContentLoaded', () => {
+
+  // Leere Spalten VOR einer Karte (0 = direkt anschließen)
+  const LUECKE  = [0, 1, 0, 1, 1, 0, 1, 0];
+  // Zusätzlicher Versatz nach unten, in Zellen
+  const VERSATZ = [0, 1, 0, 0, 1, 0, 1, 1];
+
+  const SPALTEN = { 1: 10, 2: 8, 3: 6, 4: 5 };
+  const SPALTEN_MOBIL = 5;
+
   const slider = document.getElementById('grid-slider');
   const grid   = document.getElementById('project-grid');
-  
-  // Filter Elemente
   const filterTrigger = document.getElementById('filter-trigger');
   const filterMenu    = document.getElementById('filter-menu');
   const filterBtns    = document.querySelectorAll('.filter-btn');
-  const projectCards  = document.querySelectorAll('.project-card');
+  const cards         = [...document.querySelectorAll('.project-card')];
 
+  const isMobile = () => window.innerWidth <= 768;
+
+  // --- Platzierung ---
+  const verteilen = () => {
+    if (!grid) return;
+    const stufe = grid.getAttribute('data-step') || '3';
+    const spalten = isMobile() ? SPALTEN_MOBIL : (SPALTEN[stufe] || 6);
+
+    // Höhenprofil: wie weit ist jede Spalte schon belegt
+    const profil = new Array(spalten).fill(0);
+    let cursor = 0;
+    let i = 0;
+
+    cards.forEach((card) => {
+      if (card.classList.contains('is-hidden')) {
+        card.style.gridColumn = '';
+        card.style.gridRow = '';
+        return;
+      }
+
+      const hoch = card.classList.contains('is-portrait');
+      const b = hoch ? 2 : 3;   // Breite in Spalten
+      const h = hoch ? 3 : 2;   // Höhe in Zeilen
+
+      // Startspalte: hinter der vorigen Karte, plus die Lücke aus dem Muster
+      let start = cursor + LUECKE[i % LUECKE.length];
+      if (start + b > spalten) start = LUECKE[i % LUECKE.length] ? 1 : 0;
+      if (start + b > spalten) start = 0;
+
+      // Oberkante: unter allem, was in diesen Spalten schon liegt
+      let oben = 0;
+      for (let c = start; c < start + b; c++) oben = Math.max(oben, profil[c]);
+      oben += VERSATZ[i % VERSATZ.length];
+
+      for (let c = start; c < start + b; c++) profil[c] = oben + h;
+
+      card.style.gridColumn = (start + 1) + ' / span ' + b;
+      card.style.gridRow    = (oben + 1) + ' / span ' + h;
+
+      cursor = start + b;
+      if (cursor + 2 > spalten) cursor = 0;   // kein Platz mehr, neu ansetzen
+      i++;
+    });
+  };
+
+  // --- Slider ---
   if (slider && grid) {
-
-    const isMobile = () => window.innerWidth <= 768;
-
-    const updateGrid = (value) => {
-      grid.setAttribute('data-step', value);
-    };
-
-    const setupSliderLimits = () => {
-      const currentValue = parseInt(slider.value, 10);
-      
+    const grenzenSetzen = () => {
+      const wert = parseInt(slider.value, 10);
       if (isMobile()) {
-        slider.max = "2";
-        if (currentValue > 2) {
-          slider.value = "1";
-        }
+        slider.max = '2';
+        if (wert > 2) slider.value = '1';
       } else {
-        slider.max = "4";
+        slider.max = '4';
       }
-      updateGrid(slider.value);
+      grid.setAttribute('data-step', slider.value);
+      verteilen();
     };
 
-    // Initiales Setup Slider
-    setupSliderLimits();
-    
-    const saved = localStorage.getItem('grid-step');
-    if (saved) {
-      if (isMobile() && parseInt(saved, 10) > 2) {
-        slider.value = "1";
-      } else {
-        slider.value = saved;
-      }
-      updateGrid(slider.value);
+    grenzenSetzen();
+
+    const gespeichert = localStorage.getItem('grid-step');
+    if (gespeichert) {
+      slider.value = (isMobile() && parseInt(gespeichert, 10) > 2) ? '1' : gespeichert;
+      grid.setAttribute('data-step', slider.value);
+      verteilen();
     }
 
     slider.addEventListener('input', () => {
-      updateGrid(slider.value);
+      grid.setAttribute('data-step', slider.value);
       localStorage.setItem('grid-step', slider.value);
+      verteilen();
     });
 
-    window.addEventListener('resize', setupSliderLimits);
+    window.addEventListener('resize', grenzenSetzen);
   }
 
-  // ============================================
-  // FILTER LOGIK
-  // ============================================
+  // --- Filter ---
   if (filterTrigger && filterMenu) {
-    
-    // Drop-Up Menü öffnen / schließen
     filterTrigger.addEventListener('click', (e) => {
-      e.stopPropagation(); // Verhindert sofortiges Schließen durch den Document-Click
+      e.stopPropagation();
       filterMenu.classList.toggle('is-open');
       filterTrigger.textContent = filterMenu.classList.contains('is-open') ? 'Filter ↓' : 'Filter ↑';
     });
 
-    // Menü schließen, wenn man irgendwo anders hinklickt
     document.addEventListener('click', () => {
       filterMenu.classList.remove('is-open');
       filterTrigger.textContent = 'Filter ↑';
     });
 
-    // Filter-Logik für die Buttons
-    filterBtns.forEach(btn => {
+    filterBtns.forEach((btn) => {
       btn.addEventListener('click', (e) => {
-        e.stopPropagation(); // Menü offen halten beim Klicken der Optionen
-        
-        // Aktiven Zustand der Buttons wechseln
-        filterBtns.forEach(b => b.classList.remove('active'));
+        e.stopPropagation();
+        filterBtns.forEach((b) => b.classList.remove('active'));
         btn.classList.add('active');
 
-        const filterValue = btn.getAttribute('data-filter');
+        const wert = btn.getAttribute('data-filter');
+        filterTrigger.textContent = wert === 'all' ? 'Filter ↑' : `${btn.textContent} ↑`;
+        filterMenu.classList.remove('is-open');
 
-        // Text des Hauptbuttons anpassen (zeigt gewählten Filter an)
-        filterTrigger.textContent = filterValue === 'all' ? 'Filter ↑' : `${btn.textContent} ↑`;
-        filterMenu.classList.remove('is-open'); // Nach Auswahl schließen
-
-        // Karten filtern
-        projectCards.forEach(card => {
-          if (filterValue === 'all') {
-            card.classList.remove('is-hidden');
-          } else {
-            // 1. Holt den String (z.B. "editorial, text")
-            const rawTags = card.getAttribute('data-tags') || '';
-            
-            // 2. Teilt am Komma UND entfernt automatisch alle überflüssigen Leerzeichen (trim)
-            const cardTags = rawTags.split(',').map(tag => tag.trim());
-            
-            // 3. Prüft, ob das gesuchte Tag im Array existiert
-            if (cardTags.includes(filterValue)) {
-              card.classList.remove('is-hidden');
-            } else {
-              card.classList.add('is-hidden');
-            }
-          }
+        cards.forEach((card) => {
+          const tags = (card.getAttribute('data-tags') || '').split(',').map((t) => t.trim());
+          card.classList.toggle('is-hidden', wert !== 'all' && !tags.includes(wert));
         });
+
+        verteilen();   // nach dem Filtern neu anordnen
       });
     });
   }
