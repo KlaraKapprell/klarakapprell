@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!grid) return;
 
     // Mobil: kein Raster. Die Karten laufen untereinander und jede zweite
-    // rueckt nach rechts – das Aussehen macht works.css.
+    // rueckt nach rechts – die Breiten macht works.css.
     if (isMobile()) {
       let sichtbar = 0;
       cards.forEach((card) => {

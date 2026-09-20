@@ -45,15 +45,28 @@
     padding-bottom: 90px;
   }
 
-  /* Stufe 1: versetzt, Hoch- und Querformat unterschiedlich breit */
-  .project-grid[data-step="1"] .project-card.is-portrait  { width: 70%; }
-  .project-grid[data-step="1"] .project-card.is-landscape { width: 88%; }
+  /* Stufe 1: beide Formate gleich groß.
+     Gleiche Fläche heißt bei 2:3 und 3:2, dass das Querformat genau
+     1,5x so breit ist wie das Hochformat – daher nur ein Wert zum Drehen. */
+  .project-grid[data-step="1"] {
+    --quer: 88%;
+    --hoch: calc(var(--quer) / 1.5);
+  }
+
+  .project-grid[data-step="1"] .project-card.is-portrait  { --breite: var(--hoch); }
+  .project-grid[data-step="1"] .project-card.is-landscape { --breite: var(--quer); }
 
   /* Stufe 2: jedes Bild vollflächig */
-  .project-grid[data-step="2"] .project-card { width: 100%; }
+  .project-grid[data-step="2"] .project-card { --breite: 100%; }
+
+  .project-grid .project-card {
+    width: var(--breite, 100%);
+  }
 
   /* Jede zweite sichtbare Karte rückt nach rechts (Klasse kommt aus works.js) */
-  .project-card.is-right { align-self: flex-end; }
+  .project-card.is-right {
+    align-self: flex-end;
+  }
 
   /* Der Titel läuft mit, statt im Zeilenabstand zu hängen */
   .project-card__title {
