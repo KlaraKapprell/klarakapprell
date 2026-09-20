@@ -111,8 +111,6 @@ header {
 
 /* --- Augen --- */
 .shape--eyes {
-  border: var(--stroke) solid var(--color-primary);
-  background-color: var(--color-bg);
   display: flex;
   align-items: center;
   justify-content: center;
