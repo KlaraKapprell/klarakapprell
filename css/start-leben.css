@@ -1,0 +1,47 @@
+/* ============================================
+   ENTWURF – Pixelmotive, die unter der Maus wachsen
+   Keine Bedienelemente: die Flaeche selbst ist das Element.
+   ============================================ */
+
+.leben-feld {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  touch-action: none;
+  cursor: none;   /* der Zauberstab wird auf die Leinwand gezeichnet */
+  background-color: var(--color-bg);
+}
+
+/* Gezeichnet wird in echten Geraetepixeln, die Kanten sind
+   also schon scharf - hier darf nichts nachskaliert werden. */
+/* Ueber die Klasse, nicht die Kennung: es gibt zwei Leinwaende,
+   eine hinter und eine vor der Schrift. */
+.leben-canvas {
+  display: block;
+  /* Traegt nur den Wert, damit das Skript ihn aufgeloest auslesen kann:
+     der Zauberstab soll so gross sein wie die Zeichen in den Buttons. */
+  font-size: var(--text-nav);
+}
+
+/* Der Name liegt ueber dem Feld, Klicks gehen hindurch.
+   Schlicht schwarz: ueber Pink und Orange ist er gut lesbar, und
+   difference haette daraus Gruen und Cyan gemacht - beides steht
+   nicht in der Palette. */
+.leben-name {
+  position: fixed;
+  top: 50%;
+  left: var(--page-padding-x);
+  transform: translateY(-50%);
+  z-index: 2;
+  font-size: 15vw;
+  line-height: 0.82;
+  font-weight: 500;
+  white-space: nowrap;
+  user-select: none;
+  -webkit-user-select: none;
+  pointer-events: none;
+  color: var(--color-text);
+}
+
+.leben-name span { display: block; }
