@@ -69,6 +69,11 @@
   background-size: 100% 100%;
 }
 
+/* Gleiches Zeichen wie bei "Say Hi!" im Menue */
+.hover-mail:hover::after {
+  content: "\00a0💌";
+}
+
 .hidden {
   display: none !important;
 }

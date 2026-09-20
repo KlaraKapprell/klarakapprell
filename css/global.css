@@ -149,6 +149,13 @@ ul, ol {
   display: none;
 }
 
+/* Zu jedem Menuepunkt gehoert ein Zeichen, das beim Hover dazukommt.
+   Ueber den Link adressiert und auf .nav begrenzt – die Projektseiten
+   haben mit dem Zurueck-Pfeil einen zweiten Verweis auf works.html. */
+.nav a[href="works.html"]:hover::after   { content: "\00a0🔮"; }
+.nav a[href="about.html"]:hover::after   { content: "\00a0👀"; }
+.nav a[href="imprint.html"]:hover::after { content: "\00a0📂"; }
+
 .lang-toggle[data-target="en"]:hover::after {
   content: "\00a0🇬🇧";
 }
@@ -228,7 +235,7 @@ ul, ol {
 }
 
 .mail:hover::after {
-  content: " 👀"
+  content: "\00a0💌";
 }
 
 /* --- Main --- */

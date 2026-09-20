@@ -94,9 +94,13 @@ header {
   overflow: visible;   /* die Kontur soll nicht abgeschnitten werden */
 }
 
-/* Kontur wie bei den Buttons: konstant 2px, unabhängig von der Größe */
+/* Kontur wie bei den Buttons: konstant 2px, unabhängig von der Größe.
+   polygon und ellipse stehen mit drin, damit aus Illustrator exportierte
+   Formen ohne Nacharbeit dieselbe Kontur bekommen. */
 .shape svg circle,
+.shape svg ellipse,
 .shape svg path,
+.shape svg polygon,
 .shape svg rect {
   stroke: var(--color-primary);
   stroke-width: var(--stroke);

@@ -166,31 +166,75 @@
   background: transparent;
 }
 
+/* Die Zeichen sitzen auf der Huelle, nicht im Regler selbst: ein
+   <input type="range"> nimmt keine Pseudo-Elemente an.
+   Die Huelle traegt auch die graue Pille – der Regler bleibt durchsichtig.
+   Nur so liegt der Knopf ueber den Zeichen und die Schiene darunter;
+   beides gehoert sonst zum selben Element und laesst sich nicht trennen. */
+.slider-wrap {
+  position: relative;
+  flex: 1;
+  display: flex;
+  /* Hoehe der Pille – zugleich das Quadrat, in dem Knopf und Zeichen sitzen */
+  --pille: clamp(42px, 6vw, 48px);
+  background: var(--color-muted);
+  border-radius: var(--radius-pill);
+  /* Typografie wie im Button */
+  font-family: var(--font-main);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--text-nav);
+  line-height: 1.05;
+  color: var(--color-primary);
+}
+
+/* Jedes Zeichen steht mittig in einem Quadrat am Ende der Pille. Dadurch
+   ist sein Abstand nach links bzw. rechts derselbe wie nach oben und unten,
+   ohne dass irgendwo eine Zahl steht. Der Knopf ist genau so gross und
+   deckt das Zeichen am Anschlag sauber zu. */
+.slider-wrap::before,
+.slider-wrap::after {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: var(--pille);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Der Regler darf sich nicht am Zeichen verschlucken */
+  pointer-events: none;
+}
+
+.slider-wrap::before { content: "\2212"; left: 0; }
+.slider-wrap::after  { content: "+";      right: 0; }
+
 #grid-slider {
   -webkit-appearance: none;
   appearance: none;
   width: 100%;
-  z-index: 9999;
-  height: clamp(42px, 6vw, 48px);
-  background: var(--color-muted);
+  height: var(--pille);
+  /* Die Pille liegt auf der Huelle; hier waere sie ueber den Zeichen */
+  background: transparent;
   border-radius: var(--radius-pill);
   outline: none;
   cursor: pointer;
+  /* Hebt den Knopf ueber die Zeichen, damit er sie am Anschlag zudeckt */
+  position: relative;
+  z-index: 1;
 }
 
 #grid-slider::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  width: clamp(42px, 6vw, 48px);
-  height: clamp(42px, 6vw, 48px);
+  width: var(--pille);
+  height: var(--pille);
   border-radius: 50%;
   background: var(--color-primary);
   cursor: pointer;
   transition: background var(--transition-fast);
 }
 #grid-slider::-moz-range-thumb {
-  width: clamp(42px, 6vw, 48px);
-  height: clamp(42px, 6vw, 48px);
+  width: var(--pille);
+  height: var(--pille);
   border: none;
   border-radius: 50%;
   background: var(--color-primary);
@@ -246,6 +290,13 @@ body {
   color: var(--color-bg);
   border-color: var(--color-primary);
 }
+
+/* Zu jedem Filter gehoert ein Zeichen, das beim Hover dazukommt – wie im
+   Menue. "All" bleibt schlicht, es steht fuer keine eigene Kategorie. */
+.filter-btn[data-filter="editorial"]:hover::after { content: "\00a0📖"; }
+.filter-btn[data-filter="digital"]:hover::after   { content: "\00a0💻"; }
+.filter-btn[data-filter="print"]:hover::after     { content: "\00a0🎨"; }
+.filter-btn[data-filter="concept"]:hover::after   { content: "\00a0🧠"; }
 
 /* Aktiver Zustand: Wenn ein Filter ausgewählt ist, bleibt er permanent ausgefüllt */
 .filter-btn.active {
