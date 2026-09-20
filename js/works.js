@@ -1,8 +1,9 @@
 /* ============================================
    WORKS – Raster, Slider und Filter
-   Jede Karte bekommt ihren Platz ausgerechnet: mit Lücken
+   Am Rechner bekommt jede Karte ihren Platz ausgerechnet: mit Lücken
    daneben und Versatz nach unten, statt dicht gepackt.
    Die beiden Muster unten bestimmen den Rhythmus.
+   Auf dem Handy gilt das nicht – dort laufen die Karten untereinander.
    ============================================ */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -13,7 +14,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const VERSATZ = [0, 1, 0, 0, 1, 0, 1, 1];
 
   const SPALTEN = { 1: 10, 2: 8, 3: 6, 4: 5 };
-  const SPALTEN_MOBIL = 5;
 
   const slider = document.getElementById('grid-slider');
   const grid   = document.getElementById('project-grid');
@@ -27,8 +27,28 @@ document.addEventListener('DOMContentLoaded', () => {
   // --- Platzierung ---
   const verteilen = () => {
     if (!grid) return;
+
+    // Mobil: kein Raster. Die Karten laufen untereinander und jede zweite
+    // rueckt nach rechts – das Aussehen macht works.css.
+    if (isMobile()) {
+      let sichtbar = 0;
+      cards.forEach((card) => {
+        card.style.gridColumn = '';
+        card.style.gridRow = '';
+        if (card.classList.contains('is-hidden')) {
+          card.classList.remove('is-right');
+          return;
+        }
+        card.classList.toggle('is-right', sichtbar % 2 === 1);
+        sichtbar++;
+      });
+      return;
+    }
+
+    cards.forEach((card) => card.classList.remove('is-right'));
+
     const stufe = grid.getAttribute('data-step') || '3';
-    const spalten = isMobile() ? SPALTEN_MOBIL : (SPALTEN[stufe] || 6);
+    const spalten = SPALTEN[stufe] || 6;
 
     // Höhenprofil: wie weit ist jede Spalte schon belegt
     const profil = new Array(spalten).fill(0);

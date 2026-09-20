@@ -28,21 +28,37 @@
 .project-grid[data-step="3"] { --cols:  6; grid-template-columns: repeat(6, 1fr); }
 .project-grid[data-step="4"] { --cols:  5; grid-template-columns: repeat(5, 1fr); } /* Wenige große Bilder */
 
-/* --- MOBILE OPTIMIERUNG (bis 768px) --- */
+/* --- MOBIL (bis 768px) ---
+   Auf dem Handy bringt das Raster nichts: bei fünf Spalten sind die Bilder
+   nur 40–60 % breit und daneben bleibt eine tote Spalte stehen. Stattdessen
+   laufen die Karten untereinander und wechseln die Seite – locker, aber
+   ohne die großen Lücken dazwischen. Die Platzierung macht works.js. */
 @media (max-width: 768px) {
 
   .project-grid,
-  .project-grid[data-step="1"] {
-    --cols: 5;
-    --grid-gap: var(--space-xs);
-    grid-template-columns: repeat(5, 1fr);
-    row-gap: clamp(26px, 6vw, 40px);
-  }
-
-  /* --- MOBILE STEP 2: Jedes Bild vollflächig untereinander --- */
+  .project-grid[data-step="1"],
   .project-grid[data-step="2"] {
     display: flex;
     flex-direction: column;
+    gap: clamp(30px, 8vw, 48px);
+    /* Platz, damit der Filter-Button die letzte Karte nicht überdeckt */
+    padding-bottom: 90px;
+  }
+
+  /* Stufe 1: versetzt, Hoch- und Querformat unterschiedlich breit */
+  .project-grid[data-step="1"] .project-card.is-portrait  { width: 70%; }
+  .project-grid[data-step="1"] .project-card.is-landscape { width: 88%; }
+
+  /* Stufe 2: jedes Bild vollflächig */
+  .project-grid[data-step="2"] .project-card { width: 100%; }
+
+  /* Jede zweite sichtbare Karte rückt nach rechts (Klasse kommt aus works.js) */
+  .project-card.is-right { align-self: flex-end; }
+
+  /* Der Titel läuft mit, statt im Zeilenabstand zu hängen */
+  .project-card__title {
+    position: static;
+    padding: 0;
   }
 
   /* Unten links ist der Filter – kein Sprach-Button auf dieser Seite */
