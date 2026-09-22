@@ -7,20 +7,19 @@ document.addEventListener("DOMContentLoaded", function () {
   let isSketchActive = false;
   const isTouchDevice = "ontouchstart" in window || navigator.maxTouchPoints;
 
-  // --- HOVER IMAGE EFFECT (DESKTOP) / TAP-TO-TOGGLE (MOBILE) ---
+  // --- Hover image effect (Desktop) / Tap-to-toggle (Mobile) ---
   const img = document.createElement("img");
-  img.src = "media/DSC08885.webp"; // Dein Bildpfad
+  img.src = "media/DSC08885.webp";
   img.alt = "Klara Kapprell";
   img.loading = "lazy";
-  img.style.position = "absolute"; // Desktop: Absolute positioning for hover
-  img.style.width = "30%"; // Desktop size
+  img.style.position = "absolute";
+  img.style.width = "30%";
   img.style.borderRadius = "20px";
-  img.style.display = "none"; // Initially hidden
-  img.style.pointerEvents = "none"; // Prevents blocking hover
+  img.style.display = "none";
+  img.style.pointerEvents = "none";
   document.body.appendChild(img);
 
   if (!isTouchDevice) {
-      // **Desktop: Hover to show image**
       klaraName.addEventListener("mouseover", () => {
           img.style.display = "block";
       });
@@ -34,13 +33,12 @@ document.addEventListener("DOMContentLoaded", function () {
           img.style.display = "none";
       });
   } else {
-      // **Mobile: Tap to Show/Hide**
-      img.style.position = "fixed"; // Mobile: Fixed and centered
-      img.style.width = "70%"; // Bigger on mobile
-      img.style.maxWidth = "400px"; // Prevents oversized images
+      img.style.position = "fixed";
+      img.style.width = "70%";
+      img.style.maxWidth = "400px";
       img.style.top = "50%";
       img.style.left = "50%";
-      img.style.transform = "translate(-50%, -50%)"; // Center it
+      img.style.transform = "translate(-50%, -50%)";
       img.style.zIndex = "1000";
 
       klaraName.addEventListener("click", () => {
@@ -55,20 +53,20 @@ document.addEventListener("DOMContentLoaded", function () {
       });
   }
 
-  // --- OPEN MAIL CLIENT ---
+  // --- Open mail client ---
   mailTrigger.addEventListener("click", function () {
       window.location.href = "mailto:hallo@klarakapprell.de";
   });
 
-  // --- TOGGLE P5.JS OVERLAY (NOW ALSO WORKS FOR MOBILE) ---
+  // --- Toggle p5.js overlay (also on mobile) ---
   p5Trigger.addEventListener("click", function (event) {
-      event.stopPropagation(); // Prevents event bubbling on mobile
+      event.stopPropagation();
 
       if (isSketchActive) {
-        closeSketch(); // If active, close it
+        closeSketch();
         p5Trigger.classList.remove("hover-p5-active");
       } else {
-          openSketch(); // If inactive, open it
+          openSketch();
           p5Trigger.classList.add("hover-p5-active");
       }
   });

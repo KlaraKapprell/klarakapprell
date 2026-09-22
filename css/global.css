@@ -1,8 +1,3 @@
-/* ============================================
-   GLOBAL STYLES
-   Reset, Basis-Typografie, Nav, Footer
-   ============================================ */
-
 @import './tokens.css';
 
 /* --- Font --- */
@@ -21,9 +16,10 @@
 }
 
 html {
-  -webkit-text-size-adjust: 100%; /* Verhindert Auto-Zoom auf iOS */
+  -webkit-text-size-adjust: 100%;
 }
 
+/* --- Menüleiste --- */
 .menu {
     position: fixed;
     top: clamp(12px, 2.5vh, 16px);
@@ -46,7 +42,7 @@ body {
   color: var(--color-text);
   background-color: var(--color-bg);
   padding: var(--space-s) var(--page-padding-x);
-  min-height: 100dvh;             /* dvh = korrekte Höhe auf Mobile (kein Browser-Chrome-Problem) */
+  min-height: 100dvh;
   display: flex;
   flex-direction: column;
 }
@@ -63,20 +59,6 @@ a {
 
 ul, ol {
   list-style: none;
-}
-
-/* Zurzeit nicht eingebunden – das Icon ist aus der Navigation genommen.
-   Zum Zurückholen: in den Seiten das <li> mit dem Icon und die beiden
-   Skripte js/lib/p5.min.js und js/menu-icon.js wieder eintragen. */
-#menu-icon {
-    width: clamp(45px, 10vw, 50px);
-    height: clamp(45px, 10vw, 50px);
-    display: block;
-    padding: 5px 10px;
-}
-
-#menu-icon:hover {
-  transform: scale(1.2);
 }
 
 /* --- Navigation --- */
@@ -149,9 +131,6 @@ ul, ol {
   display: none;
 }
 
-/* Zu jedem Menuepunkt gehoert ein Zeichen, das beim Hover dazukommt.
-   Ueber den Link adressiert und auf .nav begrenzt – die Projektseiten
-   haben mit dem Zurueck-Pfeil einen zweiten Verweis auf works.html. */
 .nav a[href="works.html"]:hover::after   { content: "\00a0🔮"; }
 .nav a[href="about.html"]:hover::after   { content: "\00a0👀"; }
 .nav a[href="imprint.html"]:hover::after { content: "\00a0📂"; }
@@ -164,7 +143,6 @@ ul, ol {
   content: "\00a0🇩🇪";
 }
 
-/* Mobil: Sprach-Button unten links, in voller Button-Größe */
 @media (max-width: 768px) {
   .lang-toggle {
     position: fixed;
@@ -175,7 +153,6 @@ ul, ol {
     z-index: 1300;
   }
 
-  /* Platz, damit der Button den letzten Absatz nicht überdeckt */
   main.grid-container {
     padding-bottom: 110px;
   }
@@ -240,7 +217,7 @@ ul, ol {
 
 /* --- Main --- */
 main {
-  flex: 1;                         /* Füllt den Raum zwischen Nav und Footer */
+  flex: 1;
   padding-top: var(--space-m);
   padding-bottom: var(--space-l);
 }
@@ -251,7 +228,7 @@ footer {
   bottom: 0;
   z-index: 10;
   background-color: transparent;
-  padding: var(--space-s) 0;    /* gleiche Werte wie in global.css */
-  height: var(--nav-height);    /* gleiche Höhe wie die Nav */
+  padding: var(--space-s) 0;
+  height: var(--nav-height);
   align-items: center;
 }

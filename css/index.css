@@ -1,0 +1,102 @@
+/* --- Font --- */
+@font-face {
+  font-family: 'Basteleur';
+  src: url('../basteleur/Basteleur-Moonlight.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+}
+
+/* --- Stage --- */
+
+header {
+  position: relative;
+  z-index: 1000;
+}
+
+.nav-logo,
+.lang-toggle {
+  display: none;
+}
+
+.hero {
+  position: relative;
+  overflow: hidden;
+  padding-top: 0;
+  padding-bottom: 0;
+  min-height: 65vh;
+  touch-action: none;
+}
+
+/* --- Wordmark --- */
+.wordmark {
+  --indent: 0.5em;
+  position: absolute;
+  top: 40%;
+  left: 0;
+  right: 0;
+  width: max-content;
+  max-width: 100%;
+  margin: -0.82em auto 0;
+  z-index: auto;
+  font-size: 15vw;
+  line-height: 0.82;
+  letter-spacing: -0.03em;
+  font-weight: 500;
+  text-align: left;
+  white-space: nowrap;
+  user-select: none;
+  -webkit-user-select: none;
+  pointer-events: none;
+}
+
+@media (max-width: 768px) {
+  .wordmark {
+    top: 45%;
+  }
+}
+
+.wordmark__line {
+  display: block;
+}
+
+.wordmark__line:nth-child(2) {
+  padding-left: var(--indent);
+}
+
+.wordmark__letter {
+  display: inline-block;
+  text-align: center;
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+.wordmark__alt {
+  font-family: 'Basteleur', var(--font-main);
+  font-weight: 500;
+  font-size: 92%;
+}
+
+@media (max-width: 768px) {
+  .wordmark__alt {
+    -webkit-text-stroke: 0.015em currentColor;
+  }
+}
+
+
+/* --- Pixel field --- */
+
+.pixel-field {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  touch-action: none;
+  cursor: none;
+  background-color: var(--color-bg);
+}
+
+/* --- Canvases --- */
+.pixel-canvas {
+  display: block;
+  font-size: var(--text-nav);
+}

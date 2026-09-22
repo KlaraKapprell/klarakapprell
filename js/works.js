@@ -1,16 +1,6 @@
-/* ============================================
-   WORKS – Raster, Slider und Filter
-   Am Rechner bekommt jede Karte ihren Platz ausgerechnet: mit Lücken
-   daneben und Versatz nach unten, statt dicht gepackt.
-   Die beiden Muster unten bestimmen den Rhythmus.
-   Auf dem Handy gilt das nicht – dort laufen die Karten untereinander.
-   ============================================ */
-
 document.addEventListener('DOMContentLoaded', () => {
 
-  // Leere Spalten VOR einer Karte (0 = direkt anschließen)
   const LUECKE  = [0, 1, 0, 1, 1, 0, 1, 0];
-  // Zusätzlicher Versatz nach unten, in Zellen
   const VERSATZ = [0, 1, 0, 0, 1, 0, 1, 1];
 
   const SPALTEN = { 1: 10, 2: 8, 3: 6, 4: 5 };
@@ -28,8 +18,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const verteilen = () => {
     if (!grid) return;
 
-    // Mobil: kein Raster. Die Karten laufen untereinander und jede zweite
-    // rueckt nach rechts – die Breiten macht works.css.
     if (isMobile()) {
       let sichtbar = 0;
       cards.forEach((card) => {
@@ -50,7 +38,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const stufe = grid.getAttribute('data-step') || '3';
     const spalten = SPALTEN[stufe] || 6;
 
-    // Höhenprofil: wie weit ist jede Spalte schon belegt
     const profil = new Array(spalten).fill(0);
     let cursor = 0;
     let i = 0;
@@ -63,15 +50,13 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       const hoch = card.classList.contains('is-portrait');
-      const b = hoch ? 2 : 3;   // Breite in Spalten
-      const h = hoch ? 3 : 2;   // Höhe in Zeilen
+      const b = hoch ? 2 : 3;
+      const h = hoch ? 3 : 2;
 
-      // Startspalte: hinter der vorigen Karte, plus die Lücke aus dem Muster
       let start = cursor + LUECKE[i % LUECKE.length];
       if (start + b > spalten) start = LUECKE[i % LUECKE.length] ? 1 : 0;
       if (start + b > spalten) start = 0;
 
-      // Oberkante: unter allem, was in diesen Spalten schon liegt
       let oben = 0;
       for (let c = start; c < start + b; c++) oben = Math.max(oben, profil[c]);
       oben += VERSATZ[i % VERSATZ.length];
@@ -82,7 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
       card.style.gridRow    = (oben + 1) + ' / span ' + h;
 
       cursor = start + b;
-      if (cursor + 2 > spalten) cursor = 0;   // kein Platz mehr, neu ansetzen
+      if (cursor + 2 > spalten) cursor = 0;
       i++;
     });
   };
@@ -147,7 +132,7 @@ document.addEventListener('DOMContentLoaded', () => {
           card.classList.toggle('is-hidden', wert !== 'all' && !tags.includes(wert));
         });
 
-        verteilen();   // nach dem Filtern neu anordnen
+        verteilen();
       });
     });
   }

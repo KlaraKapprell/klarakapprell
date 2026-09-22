@@ -6,30 +6,16 @@
   <meta name="description" content="Klara Kapprell – Kommunikationsdesignerin mit Fokus auf spielerisches Grafikdesign und Bildungsmedien.">
   <title>Klara Kapprell</title>
   <link rel="stylesheet" href="css/global.css">
-  <link rel="stylesheet" href="css/start.css">
-  <link rel="stylesheet" href="css/start-leben.css">
+  <link rel="stylesheet" href="css/index.css">
+  <link rel="stylesheet" href="css/marquee.css">
   <style>
-    /* Nur auf dieser Seite. Zwei Rankenfelder mit dem Namen dazwischen -
-       jede Ranke wuerfelt aus, in welchem sie waechst. Keine eigene
-       Flaeche, sonst deckte die weisse Fuellung den Namen zu.
-       In css/start-leben.css bleibt alles, damit der eigenstaendige
-       Entwurf start-leben.html unveraendert bleibt. */
-    .leben-feld { background: none; }
-    #leben-hinten { z-index: 0; }
-    #leben-vorn   { z-index: 4; }
+    .pixel-field       { background: none; }
+    #pixel-field-back  { z-index: 0; }
+    #pixel-field-front { z-index: 4; }
 
-    /* Der Name darf keinen eigenen Stapelkontext aufmachen, sonst waeren
-       die Buchstaben darin gefangen und koennten sich nicht zwischen die
-       Ebenen schieben. transform faellt deshalb weg - die Mitte trifft
-       margin-top genauso: zwei Zeilen mal 0.82 Zeilenhoehe, halb davon. */
-    .typo-name {
-      transform: none;
-      margin-top: -0.82em;
-      z-index: auto;
-    }
+    .wordmark__letter { position: relative; }
 
-    /* Jeder Buchstabe bekommt per Skript eine der drei Lagen */
-    .typo-letter { position: relative; }
+    footer.has-marquee { cursor: none; }
   </style>
   <link rel="icon" type="image/png" href="media/favicon.png">
   <script type="application/ld+json">
@@ -46,9 +32,8 @@
 </head>
 <body>
 
-  <!-- Die beiden Rankenebenen. Der Name liegt dazwischen. -->
-  <div class="leben-feld" id="leben-hinten"></div>
-  <div class="leben-feld" id="leben-vorn"></div>
+  <div class="pixel-field" id="pixel-field-back"></div>
+  <div class="pixel-field" id="pixel-field-front"></div>
 
   <header>
     <a href="index.html" class="nav-logo" id="nav-logo">Klara Kapprell</a>
@@ -78,43 +63,52 @@
     </div>
   </header>
 
-  <main class="start-stage" id="start-stage">
+  <main class="hero" id="hero">
 
-    <h1 class="typo-name" id="typo-name" aria-label="Klara Kapprell">
-      <span class="typo-line" data-word="Klara"></span>
-      <span class="typo-line" data-word="Kapprell"></span>
+    <h1 class="wordmark" id="wordmark" aria-label="Klara Kapprell">
+      <span class="wordmark__line" data-word="Klara" data-alt="4"></span>
+      <span class="wordmark__line" data-word="Kapprell" data-alt="0,6,7"></span>
     </h1>
 
   </main>
 
-  <footer>
+  <footer class="has-marquee">
+    <div class="marquee">
+      <div class="marquee__track">
+        <span class="marquee__text">🪄 +
+          <svg class="marquee__sprite" viewBox="0 0 3 3" aria-hidden="true" focusable="false">
+            <rect class="fill-green" x="1" y="0" width="1" height="1"/>
+            <rect class="fill-green" x="0" y="1" width="1" height="1"/>
+            <rect class="fill-pink"  x="1" y="1" width="1" height="1"/>
+            <rect class="fill-green" x="2" y="1" width="1" height="1"/>
+            <rect class="fill-green"  x="1" y="2" width="1" height="1"/>
+          </svg>
+          = 🌱 ✦ do a little pixel magic ✦</span>
+      </div>
+    </div>
   </footer>
 
   <script src="js/nav.js"></script>
   <script src="js/lang.js"></script>
-  <script src="js/start.js"></script>
-  <script src="js/start-leben.js"></script>
+  <script src="js/index.js"></script>
+  <script src="js/marquee.js"></script>
   <script>
-    // Jeder Buchstabe bekommt zufaellig eine Lage: ganz hinten, zwischen
-    // den beiden Rankenebenen, oder ganz vorn. Dadurch laeuft dieselbe
-    // Ranke am einen Buchstaben vorbei und hinter dem naechsten durch.
-    // start.js baut die Buchstaben erst auf, deshalb warten wir darauf.
     (() => {
-      const LAGEN = [-1, 2, 5];   // hinter beiden / dazwischen / vor beiden
-      const verteilen = () => {
-        const buchstaben = document.querySelectorAll('.typo-letter');
-        if (!buchstaben.length) return false;
-        buchstaben.forEach((b) => {
-          b.style.zIndex = LAGEN[Math.floor(Math.random() * LAGEN.length)];
+      const LAYERS = [-1, 2, 5];
+      const assignLayers = () => {
+        const letterEls = document.querySelectorAll('.wordmark__letter');
+        if (!letterEls.length) return false;
+        letterEls.forEach((b) => {
+          b.style.zIndex = LAYERS[Math.floor(Math.random() * LAYERS.length)];
         });
         return true;
       };
-      let versuche = 0;
-      const warten = () => {
-        if (verteilen() || ++versuche > 120) return;
-        requestAnimationFrame(warten);
+      let tries = 0;
+      const waitForLetters = () => {
+        if (assignLayers() || ++tries > 120) return;
+        requestAnimationFrame(waitForLetters);
       };
-      requestAnimationFrame(warten);
+      requestAnimationFrame(waitForLetters);
     })();
   </script>
 

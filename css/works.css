@@ -1,14 +1,4 @@
-/* ============================================
-   WORKS – Grid + Slider
-   ============================================ */
-
-/* --- Raster ---
-   Alle Bilder haben die gleiche Fläche: Hochformat belegt 2 Spalten x 3 Zeilen,
-   Querformat 3 Spalten x 2 Zeilen. Damit das aufgeht, sind die Zellen quadratisch
-   (--cell = Spaltenbreite).
-   Die Karten werden nicht automatisch verteilt: works.js rechnet für jede
-   ihren Platz aus, mit Lücken daneben und Versatz nach unten. Dadurch steht
-   nichts auf einer gemeinsamen Linie und es bleibt Luft dazwischen. */
+/* --- Raster --- */
 .project-grid {
   --cols: 6;
   --grid-gap: var(--space-s);
@@ -18,21 +8,15 @@
   grid-auto-rows: var(--cell);
   grid-auto-flow: row;
   column-gap: var(--grid-gap);
-  /* Der Zeilenabstand trägt die Bildunterschrift und macht die Luft aus */
   row-gap: clamp(34px, 3.5vw, 64px);
 }
 
-/* Stufen des Sliders */
-.project-grid[data-step="1"] { --cols: 10; grid-template-columns: repeat(10, 1fr); } /* Viele kleine Bilder */
+.project-grid[data-step="1"] { --cols: 10; grid-template-columns: repeat(10, 1fr); }
 .project-grid[data-step="2"] { --cols:  8; grid-template-columns: repeat(8, 1fr); }
 .project-grid[data-step="3"] { --cols:  6; grid-template-columns: repeat(6, 1fr); }
-.project-grid[data-step="4"] { --cols:  5; grid-template-columns: repeat(5, 1fr); } /* Wenige große Bilder */
+.project-grid[data-step="4"] { --cols:  5; grid-template-columns: repeat(5, 1fr); }
 
-/* --- MOBIL (bis 768px) ---
-   Auf dem Handy bringt das Raster nichts: bei fünf Spalten sind die Bilder
-   nur 40–60 % breit und daneben bleibt eine tote Spalte stehen. Stattdessen
-   laufen die Karten untereinander und wechseln die Seite – locker, aber
-   ohne die großen Lücken dazwischen. Die Platzierung macht works.js. */
+/* --- Mobil (bis 768px) --- */
 @media (max-width: 768px) {
 
   .project-grid,
@@ -41,13 +25,9 @@
     display: flex;
     flex-direction: column;
     gap: clamp(30px, 8vw, 48px);
-    /* Platz, damit der Filter-Button die letzte Karte nicht überdeckt */
     padding-bottom: 90px;
   }
 
-  /* Stufe 1: beide Formate gleich groß.
-     Gleiche Fläche heißt bei 2:3 und 3:2, dass das Querformat genau
-     1,5x so breit ist wie das Hochformat – daher nur ein Wert zum Drehen. */
   .project-grid[data-step="1"] {
     --quer: 88%;
     --hoch: calc(var(--quer) / 1.5);
@@ -56,33 +36,27 @@
   .project-grid[data-step="1"] .project-card.is-portrait  { --breite: var(--hoch); }
   .project-grid[data-step="1"] .project-card.is-landscape { --breite: var(--quer); }
 
-  /* Stufe 2: jedes Bild vollflächig */
   .project-grid[data-step="2"] .project-card { --breite: 100%; }
 
   .project-grid .project-card {
     width: var(--breite, 100%);
   }
 
-  /* Jede zweite sichtbare Karte rückt nach rechts (Klasse kommt aus works.js) */
   .project-card.is-right {
     align-self: flex-end;
   }
 
-  /* Der Titel läuft mit, statt im Zeilenabstand zu hängen */
   .project-card__title {
     position: static;
     padding: 0;
   }
 
-  /* Unten links ist der Filter – kein Sprach-Button auf dieser Seite */
   .lang-toggle {
     display: none;
   }
 }
 
-/* --- Projekt-Karte ---
-   align-self: start hält die Karte so hoch wie ihr Bild, statt sie auf die
-   Zeilenhöhe zu dehnen – der Rest der Zeile ist die Luft darunter. */
+/* --- Projekt-Karte --- */
 .project-card {
   position: relative;
   align-self: start;
@@ -139,8 +113,6 @@
 }
 
 /* --- Titel --- */
-/* Sitzt im Zeilenabstand unter dem Bild, damit die Karte selbst
-   genau so hoch bleibt wie ihre Rasterfläche. */
 .project-card__title {
   position: absolute;
   top: calc(100% + 6px);
@@ -166,20 +138,13 @@
   background: transparent;
 }
 
-/* Die Zeichen sitzen auf der Huelle, nicht im Regler selbst: ein
-   <input type="range"> nimmt keine Pseudo-Elemente an.
-   Die Huelle traegt auch die graue Pille – der Regler bleibt durchsichtig.
-   Nur so liegt der Knopf ueber den Zeichen und die Schiene darunter;
-   beides gehoert sonst zum selben Element und laesst sich nicht trennen. */
 .slider-wrap {
   position: relative;
   flex: 1;
   display: flex;
-  /* Hoehe der Pille – zugleich das Quadrat, in dem Knopf und Zeichen sitzen */
   --pille: clamp(42px, 6vw, 48px);
   background: var(--color-muted);
   border-radius: var(--radius-pill);
-  /* Typografie wie im Button */
   font-family: var(--font-main);
   font-weight: var(--font-weight-bold);
   font-size: var(--text-nav);
@@ -187,10 +152,6 @@
   color: var(--color-primary);
 }
 
-/* Jedes Zeichen steht mittig in einem Quadrat am Ende der Pille. Dadurch
-   ist sein Abstand nach links bzw. rechts derselbe wie nach oben und unten,
-   ohne dass irgendwo eine Zahl steht. Der Knopf ist genau so gross und
-   deckt das Zeichen am Anschlag sauber zu. */
 .slider-wrap::before,
 .slider-wrap::after {
   position: absolute;
@@ -200,7 +161,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  /* Der Regler darf sich nicht am Zeichen verschlucken */
   pointer-events: none;
 }
 
@@ -212,12 +172,10 @@
   appearance: none;
   width: 100%;
   height: var(--pille);
-  /* Die Pille liegt auf der Huelle; hier waere sie ueber den Zeichen */
   background: transparent;
   border-radius: var(--radius-pill);
   outline: none;
   cursor: pointer;
-  /* Hebt den Knopf ueber die Zeichen, damit er sie am Anschlag zudeckt */
   position: relative;
   z-index: 1;
 }
@@ -241,25 +199,23 @@
   cursor: pointer;
 }
 
-/* Schienenzentrierung für Firefox */
 #grid-slider::-moz-range-track {
   height: clamp(20px, 3vw, 28px);
   background: transparent;
   border-radius: var(--radius-pill);
 }
 
+/* --- Hintergrund --- */
 body {
-  background-color: var(--color-bg); /* sicherstellen dass kein weißer Fallback greift */
+  background-color: var(--color-bg);
 }
 
-/* FILTER SYSTEM (Drop-Up) */
-
+/* --- Filter (Drop-Up) --- */
 .filter-dropdown {
   position: relative;
   display: inline-block;
 }
 
-/* Der Haupt-Trigger & die Filter-Buttons teilen sich exakt den Nav-Stil */
 .filter-trigger,
 .filter-btn {
   display: inline-flex;
@@ -283,7 +239,6 @@ body {
   transition: background-size 0.4s ease-in-out, color 0.4s ease-in-out, border-color 0.4s ease-in-out;
 }
 
-/* Hover-Zustand für Trigger und normale Buttons */
 .filter-trigger:hover,
 .filter-btn:hover {
   background-size: 100% 100%;
@@ -291,40 +246,34 @@ body {
   border-color: var(--color-primary);
 }
 
-/* Zu jedem Filter gehoert ein Zeichen, das beim Hover dazukommt – wie im
-   Menue. "All" bleibt schlicht, es steht fuer keine eigene Kategorie. */
 .filter-btn[data-filter="editorial"]:hover::after { content: "\00a0📖"; }
 .filter-btn[data-filter="digital"]:hover::after   { content: "\00a0💻"; }
 .filter-btn[data-filter="print"]:hover::after     { content: "\00a0🎨"; }
 .filter-btn[data-filter="concept"]:hover::after   { content: "\00a0🧠"; }
 
-/* Aktiver Zustand: Wenn ein Filter ausgewählt ist, bleibt er permanent ausgefüllt */
 .filter-btn.active {
   background-size: 100% 100%;
   color: var(--color-bg);
   border-color: var(--color-primary);
 }
 
-/* Das Drop-Up Menü */
 .filter-menu {
-  display: none; /* Standardmäßig versteckt */
+  display: none;
   position: absolute;
-  bottom: calc(100% + 12px); /* Abstand nach oben über dem Button */
+  bottom: calc(100% + 12px);
   left: 0;
   background: transparent;
-  flex-direction: column-reverse; /* Dreht die Reihenfolge um: 'All' ist unten nah am Daumen */
+  flex-direction: column-reverse;
   gap: 10px;
   z-index: 10001;
   pointer-events: none;
 }
 
-/* Wenn das Menü geöffnet wird */
 .filter-menu.is-open {
   display: flex;
   pointer-events: auto;
 }
 
-/* Breite der Buttons im Menü angleichen, falls gewünscht */
 .filter-btn {
   width: max-content;
 }

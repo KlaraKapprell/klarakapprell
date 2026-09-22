@@ -1,4 +1,4 @@
-/* Das Grid-System für den Hauptbereich */
+/* --- Raster --- */
 .grid-container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -7,9 +7,8 @@
   max-width: 1200px;
 }
 
-/* Der About-Bereich bricht aus und nutzt alle 3 Spalten */
 .about-container {
-  grid-column: 1 / -1; /* Startet bei Spalte 1 und geht bis zum Ende */
+  grid-column: 1 / -1;
   width: 100%;
   position: relative;
   font-size: clamp(26px, 5vw, 36px);
@@ -19,6 +18,7 @@
   padding-bottom: clamp(48px, 9vw, 86px);
 }
 
+/* --- Pillen im Fließtext --- */
 .hover-name  {
   padding: 0px 7.5px 2.5px 7.5px;
   border-radius: var(--radius-pill);
@@ -69,11 +69,11 @@
   background-size: 100% 100%;
 }
 
-/* Gleiches Zeichen wie bei "Say Hi!" im Menue */
 .hover-mail:hover::after {
   content: "\00a0💌";
 }
 
+/* --- p5-Overlay --- */
 .hidden {
   display: none !important;
 }
@@ -101,24 +101,23 @@
   pointer-events: none;
 }
 
-/* Ensure the header and footer are always on top */
 header, footer {
-  position: relative;  /* Ensures they stay in normal document flow */
-  z-index: 1000; /* Higher than the p5 sketch */
+  position: relative;
+  z-index: 1000;
 }
 
 canvas {
   pointer-events: none !important;
 }
 
+/* --- Farbwechsel --- */
 .color-changing-box {
   padding: 0px 7.5px 2.5px 7.5px;
   border-radius: var(--radius-pill);
   display: inline-block;
-  animation: colorChange 5s infinite step-end; /* 5 colors × 1s = 5s cycle */
+  animation: colorChange 5s infinite step-end;
 }
 
-/* Keyframes for instant color change */
 @keyframes colorChange {
   0% { background-color: var(--color-lime); }
   20% { background-color: var(--color-pink); }
@@ -128,7 +127,7 @@ canvas {
   100% { background-color: var(--color-lime); }
 }
 
-/* Styling für die einzelnen Kategorien */
+/* --- Lebenslauf --- */
 .cv-category {
   display: flex;
   flex-direction: column;
@@ -142,7 +141,6 @@ canvas {
   padding-top: var(--space-xs);
 }
 
-/* Ein einzelner Eintrag */
 .cv-item {
   display: flex;
   flex-direction: column;
@@ -153,11 +151,11 @@ canvas {
   padding-top: var(--space-xs);
 }
 
-/* Styling für das Datum */
 .cv-date {
   font-variant-numeric: tabular-nums;
 }
 
+/* --- Links --- */
 .link {
   cursor: pointer;
   text-decoration: none;
@@ -168,10 +166,10 @@ canvas {
   text-decoration: underline;
 }
 
-/* Responsive Design: Auf Smartphones alles untereinander anzeigen */
+/* --- Handy --- */
 @media (max-width: 768px) {
   .grid-container {
-    grid-template-columns: 1fr; /* Nur noch 1 Spalte auf kleinen Bildschirmen */
+    grid-template-columns: 1fr;
     gap: 24px;
   }
 }

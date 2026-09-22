@@ -1,14 +1,8 @@
-/* ============================================
-   LANG – Sprachumschalter DE / EN
-   Deutsch steht im HTML, die englische Übersetzung
-   in data-en (Inhalt) bzw. data-en-aria-label.
-   Gilt für alle Seiten
-   ============================================ */
-
 (() => {
   const btn = document.getElementById("lang-toggle");
   if (!btn) return;
 
+  // --- Gespeicherte Sprache ---
   const STORAGE_KEY = "lang";
 
   const getSaved = () => {
@@ -16,10 +10,10 @@
   };
 
   const save = (lang) => {
-    try { localStorage.setItem(STORAGE_KEY, lang); } catch (e) { /* Storage blockiert */ }
+    try { localStorage.setItem(STORAGE_KEY, lang); } catch (e) {  }
   };
 
-  // Deutschen Originaltext merken, bevor er ersetzt wird
+  // --- Deutschen Text sichern ---
   document.querySelectorAll("[data-en]").forEach((el) => {
     el.dataset.de = el.innerHTML;
   });
@@ -27,6 +21,7 @@
     el.dataset.deAriaLabel = el.getAttribute("aria-label");
   });
 
+  // --- Umschalten ---
   const apply = (lang) => {
     const en = lang === "en";
 
@@ -43,6 +38,7 @@
     btn.setAttribute("aria-label", en ? "Auf Deutsch wechseln" : "Switch to English");
   };
 
+  // --- Start und Knopf ---
   let current = getSaved() === "en" ? "en" : "de";
   apply(current);
 

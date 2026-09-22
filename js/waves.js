@@ -11,6 +11,7 @@ const waveSketch = (p) => {
   let myList;
   let shapeList;
 
+  // --- Aufbau und Bild ---
   p.setup = function () {
     p.createCanvas(window.innerWidth, window.innerHeight);
     updateWaveProperties();
@@ -25,6 +26,7 @@ const waveSketch = (p) => {
     renderWave();
   };
 
+  // --- Welle rechnen ---
   function updateWaveProperties() {
     w = p.height * 2;
     dx = (p.TWO_PI / period) * ySpacing;
@@ -41,6 +43,7 @@ const waveSketch = (p) => {
     }
   }
 
+  // --- Welle zeichnen ---
   function renderWave() {
     for (let i = 0; i < 100; i++) {
       if (shapeList[i] === "vertex") {
@@ -69,8 +72,9 @@ const waveSketch = (p) => {
     grow = Math.min(grow + 0.01, 0.4);
   }
 
+  // --- Fenstergröße ---
   p.windowResized = function () {
     p.resizeCanvas(window.innerWidth, window.innerHeight);
-    updateWaveProperties(); // Recalculate wave properties when the window size changes
+    updateWaveProperties();
   };
 };
