@@ -320,7 +320,7 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   // --- Vines ---
-  const addVine = (x, y, angle, urgent, front) => {
+  const addVine = (x, y, angle, urgent, front, target) => {
     if (vines.length >= MAX_VINES) {
       if (!urgent) return false;
       let longest = 0;
@@ -334,7 +334,7 @@ document.addEventListener('DOMContentLoaded', () => {
       y: y === undefined ? rows - 1 : y,
       angle: angle === undefined ? -Math.PI / 2 + (Math.random() - 0.5) * 0.7 : angle,
       steps: 0,
-      ceiling: 0,
+      target: target === undefined ? -Math.PI / 2 : target,
       rate: VINE_STEP_MIN + Math.random() * (VINE_STEP_MAX - VINE_STEP_MIN),
       last: 0,
       front: front === undefined ? Math.random() < 0.5 : front,
@@ -345,28 +345,30 @@ document.addEventListener('DOMContentLoaded', () => {
   const stepVine = (vine) => {
     if (++vine.steps > VINE_LENGTH) return false;
 
-    const target = vine.ceiling === 0 ? -Math.PI / 2 : (vine.ceiling > 0 ? 0 : -Math.PI);
+    const turn = vine.target - vine.angle;
 
     vine.angle += (Math.random() - 0.5) * VINE_WANDER;
-    vine.angle += (target - vine.angle) * VINE_UPRIGHT;
+    vine.angle += Math.atan2(Math.sin(turn), Math.cos(turn)) * VINE_UPRIGHT;
 
     vine.x += Math.cos(vine.angle);
     vine.y += Math.sin(vine.angle);
 
+    // An jedem Rand abprallen, oben und unten kehrt sich auch die Wuchsrichtung um
     if (vine.y < 1) {
       vine.y = 1;
-      if (vine.ceiling === 0) vine.ceiling = Math.cos(vine.angle) >= 0 ? 1 : -1;
+      if (Math.sin(vine.angle) < 0) vine.angle = -vine.angle;
+      vine.target = Math.PI / 2;
     } else if (vine.y > rows - 2) {
       vine.y = rows - 2;
+      if (Math.sin(vine.angle) > 0) vine.angle = -vine.angle;
+      vine.target = -Math.PI / 2;
     }
     if (vine.x < 1) {
       vine.x = 1;
-      vine.angle = Math.PI - vine.angle;
-      if (vine.ceiling !== 0) vine.ceiling = 1;
+      if (Math.cos(vine.angle) < 0) vine.angle = Math.PI - vine.angle;
     } else if (vine.x > cols - 2) {
       vine.x = cols - 2;
-      vine.angle = Math.PI - vine.angle;
-      if (vine.ceiling !== 0) vine.ceiling = -1;
+      if (Math.cos(vine.angle) > 0) vine.angle = Math.PI - vine.angle;
     }
 
     const x = Math.round(vine.x), y = Math.round(vine.y);
@@ -378,7 +380,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (vines.length < MAX_VINES - VINE_RESERVE && Math.random() < VINE_BRANCH) {
-      addVine(vine.x, vine.y, vine.angle + (Math.random() < 0.5 ? 0.75 : -0.75), false, vine.front);
+      addVine(vine.x, vine.y, vine.angle + (Math.random() < 0.5 ? 0.75 : -0.75), false, vine.front, vine.target);
     }
     if (Math.random() < BLOOM) placeSprite(x, y, vine.front);
 

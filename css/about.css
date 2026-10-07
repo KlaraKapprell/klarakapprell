@@ -157,6 +157,7 @@ canvas {
 
 /* --- Links --- */
 .link {
+  color: var(--color-pink);
   cursor: pointer;
   text-decoration: none;
   transition: text-decoration 0.4s ease-in-out

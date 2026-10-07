@@ -1,3 +1,49 @@
+// --- Embedded app ---
+
+(() => {
+  const embed = document.getElementById("embed");
+  if (!embed) return;
+
+  const frame = document.getElementById("embed-frame");
+  const close = document.getElementById("embed-close");
+
+  const open = (src) => {
+    frame.src = src;
+    embed.hidden = false;
+    document.body.style.overflow = "hidden";
+  };
+
+  // Focus the app so its keys work, and let Escape close it from inside
+  frame.addEventListener("load", () => {
+    if (!frame.getAttribute("src")) return;
+    try {
+      frame.contentWindow.focus();
+      frame.contentDocument.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") shut();
+      });
+    } catch (e) {  }
+  });
+
+  const shut = () => {
+    embed.hidden = true;
+    frame.removeAttribute("src");
+    document.body.style.overflow = "";
+  };
+
+  // Delegated, because lang.js replaces the link when switching language
+  document.addEventListener("click", (e) => {
+    const link = e.target.closest("[data-embed]");
+    if (!link) return;
+    e.preventDefault();
+    open(link.href);
+  });
+
+  close.addEventListener("click", shut);
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && !embed.hidden) shut();
+  });
+})();
+
 // --- Carousel to start ---
 
 (() => {

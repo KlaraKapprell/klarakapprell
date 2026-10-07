@@ -154,6 +154,7 @@ html, body {
 
 /* --- Links --- */
 .link {
+  color: var(--color-pink);
   cursor: pointer;
   text-decoration: none;
   transition: text-decoration 0.4s ease-in-out
@@ -161,6 +162,55 @@ html, body {
 
 .link:hover {
   text-decoration: underline;
+}
+
+/* --- Eingebettete Anwendung --- */
+.embed {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  background-color: var(--color-bg);
+}
+
+.embed[hidden] {
+  display: none;
+}
+
+.embed-frame {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.embed-close {
+  position: fixed;
+  top: clamp(12px, 2.5vh, 16px);
+  right: var(--page-padding-x, 20px);
+  width: clamp(42px, 6vw, 48px);
+  height: clamp(42px, 6vw, 48px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.embed-close span {
+  height: var(--bar);
+  width: 100%;
+  background: #fff;
+  border-radius: 999px;
+}
+
+.embed-close span:nth-child(1) {
+  transform: translateY(calc(var(--bar) / 2)) rotate(45deg);
+}
+
+.embed-close span:nth-child(2) {
+  transform: translateY(calc(var(--bar) / -2)) rotate(-45deg);
 }
 
 /* --- Tablet und Handy --- */
